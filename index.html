@@ -223,7 +223,7 @@
   const formData = new FormData(e.target);
   const data = Object.fromEntries(formData.entries());
 try{
-  const response = await fetch("http://localhost:3000/api/book-session", {
+  const response = await fetch("https://eecb2crevamped.onrender.com/api/book-session", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)

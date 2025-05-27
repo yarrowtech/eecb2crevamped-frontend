@@ -740,7 +740,7 @@
     }
 
     try {
-      const profileResponse = await fetch(`http://localhost:3000/api/profile/view/${email}`);
+      const profileResponse = await fetch(`https://eecb2crevamped.onrender.com/api/profile/view/${email}`);
       if (!profileResponse.ok) throw new Error("Profile fetch failed");
 
       const user = await profileResponse.json();
@@ -751,7 +751,7 @@
         return;
       }
 
-      const quizResponse = await fetch(`http://localhost:3000/api/quiz/${userClass}`);
+      const quizResponse = await fetch(`https://eecb2crevamped.onrender.com/api/quiz/${userClass}`);
       const questions = await quizResponse.json();
 
       if (quizResponse.ok && questions.length > 0) {
@@ -822,7 +822,7 @@
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/submit", {
+      const response = await fetch("https://eecb2crevamped.onrender.com/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
