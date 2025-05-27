@@ -456,7 +456,7 @@ body {
             const formData = new FormData();
             formData.append("profileImage", fileInput.files[0]);
 
-            const uploadRes = await fetch(`http://localhost:3000/api/upload-profile-image/${encodeURIComponent(email)}`, {
+            const uploadRes = await fetch(`https://eecb2crevamped.onrender.com/api/upload-profile-image/${encodeURIComponent(email)}`, {
               method: "POST",
               body: formData
             });
