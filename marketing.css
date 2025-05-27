@@ -1,0 +1,129 @@
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+  
+  .hero {
+    background-image: url("img/eec-partner-mkt.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+  }
+  
+  .hero p {
+    font-size: 1.25rem;
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+  }
+  
+  .accordion-button h4 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  
+  .accordion-body h5,
+  .accordion-body h6 {
+    margin-bottom: 15px;
+    font-weight: 500;
+  }
+  
+  .accordion-body ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .accordion-body li {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  .footer-wrapper {
+    background-color: #0975a3;
+    padding-top: 20px;
+  }
+  
+  footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0 15px;
+  }
+  
+  .footer-column {
+    flex: 1 1 200px;
+    min-width: 200px;
+  }
+  
+  .footer-column h5 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-column ul li a {
+    color: #fbbe06;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer-column ul li a:hover {
+    color: #007bff;
+  }
+  
+  .footer-icons a {
+    margin-right: 10px;
+    display: inline-block;
+  }
+  
+  .footer-icons img {
+    width: 24px;
+    height: auto;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px 0;
+    border-top: 1px solid #ccc;
+    color: #fbbe06;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-row {
+      flex-direction: column;
+    }
+  }
+  

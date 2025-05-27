@@ -1,0 +1,267 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | EEC Learning App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .register-container {
+      max-width: 400px;
+      margin: 100px auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .form-control {
+      margin-bottom: 15px;
+    }
+    .btn-register {
+      background-color: #007bff;
+      color: #fff;
+      width: 100%;
+    }
+    .btn-register:hover {
+      background-color: #0056b3;
+    }
+    .register-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2 class="register-header">Register to EEC Learning</h2>
+    <form id="registerForm">
+      <div class="mb-3">
+        <label for="registrationNumber" class="form-label">Registration Number</label>
+        <input type="text" class="form-control" id="registrationNumber" placeholder="Enter your registration number" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn btn-register">Register</button>
+    </form>
+  </div>
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const registrationNumber = document.getElementById("registrationNumber").value;
+      const password = document.getElementById("password").value;
+      
+      const response = await fetch("https://eecb2c-backend.onrender.com/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ registrationNumber, password })
+      });
+      
+      const data = await response.json();
+      if (response.ok) {
+        alert("Registration successful!");
+        window.location.href = `profileupdate.html?registrationNumber=${registrationNumber}`;
+      } else {
+        alert("Registration failed: " + data.message);
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | EEC Learning App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .login-container {
+      max-width: 400px;
+      margin: 100px auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .form-control {
+      margin-bottom: 15px;
+    }
+    .btn-login {
+      background-color: #007bff;
+      color: #fff;
+      width: 100%;
+    }
+    .btn-login:hover {
+      background-color: #0056b3;
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2 class="login-header">Login to EEC Learning</h2>
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter your email" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password" required />
+      </div>
+      <button type="submit" class="btn btn-login">Login</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      try {
+        const response = await fetch("http://localhost:3000/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Login successful! Welcome, " + data.user.childName);
+         
+          window.location.href = `profileupdate.html?email=${encodeURIComponent(email)}`;
+        } else {
+          alert("Login failed: " + data.message);
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        alert("An unexpected error occurred. Please try again later.");
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> -->
+
+
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | EEC Learning App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: rgb(247, 218, 5);
+    }
+    .login-container {
+      max-width: 400px;
+      margin: 100px auto;
+      background-color: #ede6e6;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .form-control {
+      margin-bottom: 15px;
+    }
+    .form-control {
+  background-color: #fef6e4;  /* Light cream background */
+  color: #222;                /* Text color */
+  border: 1px solid #ffb703;  /* Yellow-orange border */
+}
+
+.form-control::placeholder {
+  color: #999;  
+  font-size: 10px;              /* Placeholder text color */
+}
+
+    .btn-login {
+      background-color: #007bff;
+      color: #fff;
+      width: 100%;
+    }
+    .btn-login:hover {
+      background-color: #0056b3;
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2 class="login-header">Login to EEC Learning</h2>
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter your email" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password" required />
+        <div class="text-end mt-1">
+          <a href="forgot-password.html">Forgot Password?</a>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-login">Login</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      try {
+        const response = await fetch("http://localhost:3000/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Login successful! Welcome, " + data.user.childName);
+          window.location.href = `profileupdate.html?email=${encodeURIComponent(email)}`;
+        } else {
+          alert("Login failed: " + data.message);
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        alert("An unexpected error occurred. Please try again later.");
+      }
+    });
+  </script>
+</body>
+</html>

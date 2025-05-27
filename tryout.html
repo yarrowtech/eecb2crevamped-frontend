@@ -1,0 +1,2192 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portal</title>
+  <style>
+  
+    .main-menu {
+      background-color: orange;
+      padding: 25px 0;
+      text-align: center;
+    }
+
+    .menu-items {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .comon-btn {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 10px 15px;
+      background-color: white;
+      color: black;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .comon-btn:hover {
+      background-color: orange;
+      color: white;
+    }
+
+    .main-content-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .filter-card {
+      flex: 1 1 300px;
+      max-width: 300px;
+      background-color: #e9e8d9;
+      box-shadow: 5px 10px rgba(209, 208, 203, 0.8);
+      padding: 20px;
+      height: fit-content;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      background-color: white;
+    }
+
+    button {
+      background-color: orange;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: darkorange;
+    }
+
+    .content-section-container {
+      flex: 3 1 700px;
+      background-color: #f3f3e5;
+      padding: 30px;
+    }
+
+    .content-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .main-content-wrapper {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+<div class="main-menu">
+  <div class="menu-items">
+    <div class="comon-btn" data-section="home">🏠 Home</div>
+  </div>
+</div>
+
+
+<div class="main-content-wrapper">
+  
+
+  <div class="filter-card">
+    <p>Select Your Class and Level</p>
+
+    <label for="class">Select Class</label>
+    <select id="class">
+      <option value="">--Select Class--</option>
+      <option value="class1">Class 1</option>
+      <option value="class2">Class 2</option>
+      <option value="class3">Class 3</option>
+    </select>
+
+    <label for="level">Select Level</label>
+    <select id="level">
+      <option value="">--Select Level--</option>
+      <option value="basic">Basic Level</option>
+      <option value="intermediate" disabled>Intermediate Level 🔒</option>
+      <option value="advanced" disabled>Advanced Level 🔒</option>
+    </select>
+
+    <button id="showContentBtn">Show Content</button>
+  </div>
+
+
+  <div class="content-section-container">
+    <div class="content-section" id="contentDisplay">
+      <h2>Welcome!</h2>
+      <p>Please select your Class and Level to view the content.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const classSelect = document.getElementById("class");
+  const levelSelect = document.getElementById("level");
+  const showContentBtn = document.getElementById("showContentBtn");
+  const contentDisplay = document.getElementById("contentDisplay");
+
+  let unlockedIntermediate = false; // flag
+
+  const class1BasicQuestions = [
+    { question: "What is 2 + 2?", options: ["3", "4", "5", "6"], answer: "4" },
+    { question: "Name the capital of France.", options: ["Paris", "London", "Berlin", "Madrid"], answer: "Paris" },
+    { question: "What color is the sky?", options: ["Green", "Blue", "Yellow", "Red"], answer: "Blue" },
+    { question: "How many legs does a spider have?", options: ["6", "8", "10", "12"], answer: "8" },
+    { question: "What is the first letter of the alphabet?", options: ["A", "B", "C", "D"], answer: "A" },
+    { question: "What day comes after Monday?", options: ["Sunday", "Tuesday", "Wednesday", "Friday"], answer: "Tuesday" },
+    { question: "What is 5 x 5?", options: ["20", "25", "30", "15"], answer: "25" },
+    { question: "Name a fruit that is yellow.", options: ["Apple", "Banana", "Grapes", "Orange"], answer: "Banana" },
+    { question: "What is the opposite of 'hot'?", options: ["Cold", "Warm", "Cool", "Burning"], answer: "Cold" },
+    { question: "How many months are there in a year?", options: ["10", "11", "12", "13"], answer: "12" }
+  ];
+
+  const class1IntermediateQuestions = [
+    { question: "What is 10 divided by 2?", options: ["2", "5", "10", "20"], answer: "5" },
+    { question: "What gas do plants breathe in?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Helium"], answer: "Carbon Dioxide" },
+    { question: "Which planet is closest to the Sun?", options: ["Venus", "Earth", "Mercury", "Mars"], answer: "Mercury" },
+    { question: "How many continents are there?", options: ["5", "6", "7", "8"], answer: "7" },
+    { question: "Who wrote 'The Jungle Book'?", options: ["Rudyard Kipling", "J.K. Rowling", "Roald Dahl", "Mark Twain"], answer: "Rudyard Kipling" },
+    { question: "Which shape has four equal sides?", options: ["Triangle", "Circle", "Square", "Rectangle"], answer: "Square" },
+    { question: "Water freezes at how many degrees Celsius?", options: ["0", "100", "-10", "50"], answer: "0" },
+    { question: "What do bees make?", options: ["Honey", "Milk", "Bread", "Juice"], answer: "Honey" },
+    { question: "How many colors are there in a rainbow?", options: ["5", "6", "7", "8"], answer: "7" },
+    { question: "What is the largest mammal?", options: ["Elephant", "Blue Whale", "Giraffe", "Shark"], answer: "Blue Whale" }
+  ];
+
+  function renderQuiz(questions, title) {
+    let questionsHTML = `<form id="quizForm"><ol>`;
+
+    questions.forEach((q, index) => {
+      questionsHTML += `
+        <li>
+          <p><strong>${q.question}</strong></p>
+          ${q.options.map(option => `
+            <label>
+              <input type="radio" name="question${index}" value="${option}" required> ${option}
+            </label><br>
+          `).join('')}
+        </li><br>
+      `;
+    });
+
+    questionsHTML += `</ol><button type="submit">Submit Answers</button></form>`;
+
+    contentDisplay.innerHTML = `
+      <h2>${title}</h2>
+      <p>Answer the questions below:</p>
+      ${questionsHTML}
+    `;
+
+    document.getElementById('quizForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      let score = 0;
+
+      questions.forEach((q, index) => {
+        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+        if (selectedOption && selectedOption.value === q.answer) {
+          score++;
+        }
+      });
+
+      let percentage = (score / questions.length) * 100;
+      let passMessage = '';
+
+      if (title.includes('Basic Level')) {
+        if (percentage >= 80) {
+          unlockedIntermediate = true;
+          document.querySelector('option[value="intermediate"]').disabled = false;
+          passMessage = `<p style="color:green;">Congratulations! You unlocked Intermediate Level 🎉</p>`;
+        } else {
+          passMessage = `<p style="color:red;">You need at least 80% to unlock Intermediate Level.</p>`;
+        }
+      }
+
+      contentDisplay.innerHTML = `
+        <h2>Your Score</h2>
+        <p>You scored <strong>${score}</strong> out of <strong>${questions.length}</strong> (${percentage}%).</p>
+        ${passMessage}
+        <button onclick="window.location.reload()">Try Again / Reload</button>
+      `;
+    });
+  }
+
+  showContentBtn.addEventListener("click", () => {
+    const selectedClass = classSelect.value;
+    const selectedLevel = levelSelect.value;
+
+    if (selectedClass === "class1" && selectedLevel === "basic") {
+      renderQuiz(class1BasicQuestions, "Class 1 - Basic Level");
+    } else if (selectedClass === "class1" && selectedLevel === "intermediate") {
+      if (unlockedIntermediate) {
+        renderQuiz(class1IntermediateQuestions, "Class 1 - Intermediate Level");
+      } else {
+        contentDisplay.innerHTML = `
+          <h2>Access Locked 🔒</h2>
+          <p>Please complete Class 1 - Basic Level with at least 80% score to unlock Intermediate Level.</p>
+        `;
+      }
+    } else {
+      contentDisplay.innerHTML = `
+        <h2>Content Not Available</h2>
+        <p>Currently, only Class 1 content is available.</p>
+      `;
+    }
+  });
+</script>
+
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portal</title>
+  <style>
+  
+    .main-menu {
+      background-color: orange;
+      padding: 25px 0;
+      text-align: center;
+    }
+
+    .menu-items {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .comon-btn {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 10px 15px;
+      background-color: white;
+      color: black;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .comon-btn:hover {
+      background-color: orange;
+      color: white;
+    }
+
+    .main-content-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .filter-card {
+      flex: 1 1 300px;
+      max-width: 300px;
+      background-color: #e9e8d9;
+      box-shadow: 5px 10px rgba(209, 208, 203, 0.8);
+      padding: 20px;
+      height: fit-content;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      background-color: white;
+    }
+
+    button {
+      background-color: orange;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: darkorange;
+    }
+
+    .content-section-container {
+      flex: 3 1 700px;
+      background-color: #f3f3e5;
+      padding: 30px;
+    }
+
+    .content-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .main-content-wrapper {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="main-menu">
+  <div class="menu-items">
+    <div class="comon-btn" data-section="home">?? Home</div>
+  </div>
+</div>
+
+
+<div class="main-content-wrapper">
+  
+
+  <div class="filter-card">
+    <p>Tryout</p>
+
+    <label for="class">Select Class</label>
+    <select id="class">
+      <option value="">--Select Class--</option>
+      <option value="class1">Class 1</option>
+      <option value="class2">Class 2</option>
+      <option value="class3">Class 3</option>
+    </select>
+
+    <label for="level">Select Level</label>
+    <select id="level">
+      <option value="">--Select Level--</option>
+      <option value="basic">Basic Level</option>
+      <option value="intermediate" disabled>Intermediate Level ??</option>
+      <option value="advanced" disabled>Advanced Level ??</option>
+    </select>
+
+    <button id="showContentBtn">Show Content</button>
+  </div>
+
+
+  <div class="content-section-container">
+    <div class="content-section" id="contentDisplay">
+      <h2>Welcome!</h2>
+      <p>Please select your Class and Level to view the content.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get("email");
+
+  if (email) {
+    console.log("User Email:", email); 
+  } else {
+    alert("No email found. Please log in again.");
+  }
+
+  const classSelect = document.getElementById("class");
+  const levelSelect = document.getElementById("level");
+  const showContentBtn = document.getElementById("showContentBtn");
+  const contentDisplay = document.getElementById("contentDisplay");
+
+  let unlockedIntermediate = false; 
+
+
+  async function fetchQuestions(classId, level) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/quiz/${classId}/${level}`);
+      if (response.ok) {
+        return await response.json();
+      } else {
+        throw new Error('Failed to fetch quiz questions');
+      }
+    } catch (error) {
+      console.error('Error fetching questions:', error);
+      alert('There was an error loading the quiz.');
+      return [];
+    }
+  }
+
+  function renderQuiz(questions, title) {
+    let questionsHTML = `<form id="quizForm"><ol>`;
+
+    questions.forEach((q, index) => {
+      questionsHTML += `
+        <li>
+          <p><strong>${q.question}</strong></p>
+          ${q.options.map(option => `
+            <label>
+              <input type="radio" name="question${index}" value="${option}" required> ${option}
+            </label><br>
+          `).join('')}
+        </li><br>
+      `;
+    });
+
+    questionsHTML += `</ol><button type="submit">Submit Answers</button></form>`;
+
+    contentDisplay.innerHTML = `
+      <h2>${title}</h2>
+      <p>Answer the questions below:</p>
+      ${questionsHTML}
+    `;
+
+    document.getElementById('quizForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      let score = 0;
+
+      questions.forEach((q, index) => {
+        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+        if (selectedOption && selectedOption.value === q.answer) {
+          score++;
+        }
+      });
+
+      let percentage = (score / questions.length) * 100;
+      let passMessage = '';
+
+      if (title.includes('Basic Level')) {
+        if (percentage >= 80) {
+          unlockedIntermediate = true;
+          document.querySelector('option[value="intermediate"]').disabled = false;
+          passMessage = `<p style="color:green;">Congratulations! You unlocked Intermediate Level ??</p>`;
+        } else {
+          passMessage = `<p style="color:red;">You need at least 80% to unlock Intermediate Level.</p>`;
+        }
+      }
+
+      contentDisplay.innerHTML = `
+        <h2>Your Score</h2>
+        <p>You scored <strong>${score}</strong> out of <strong>${questions.length}</strong> (${percentage}%).</p>
+        ${passMessage}
+        <button onclick="window.location.reload()">Try Again / Reload</button>
+      `;
+    });
+  }
+
+  showContentBtn.addEventListener("click", async () => {
+    const selectedClass = classSelect.value;
+    const selectedLevel = levelSelect.value;
+
+    if (selectedClass === "class1" && selectedLevel === "basic") {
+      const questions = await fetchQuestions('class1', 'basic');
+      renderQuiz(questions, "Class 1 - Basic Level");
+    } else if (selectedClass === "class1" && selectedLevel === "intermediate") {
+      if (unlockedIntermediate) {
+        const questions = await fetchQuestions('class1', 'intermediate');
+        renderQuiz(questions, "Class 1 - Intermediate Level");
+      } else {
+        contentDisplay.innerHTML = `
+          <h2>Access Locked ??</h2>
+          <p>Please complete Class 1 - Basic Level with at least 80% score to unlock Intermediate Level.</p>
+        `;
+      }
+    } else {
+      contentDisplay.innerHTML = `
+        <h2>Content Not Available</h2>
+        <p>Currently, only Class 1 content is available.</p>
+      `;
+    }
+  });
+</script>
+
+
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .main-menu {
+      background-color: orange;
+      padding: 20px 30px;
+    }
+
+    .menu-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .comon-btn {
+      background-color: white;
+      color: black;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .comon-btn:hover {
+      background-color: orange;
+      color: white;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile-text {
+      text-align: right;
+    }
+
+    .profile-name {
+      font-weight: bold;
+    }
+
+    .profile-address {
+      font-size: 0.9em;
+    }
+
+    .profile-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+
+    .main-content-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      align-items: flex-start;
+    }
+
+    .filter-card {
+      flex: 1 1 250px;
+      max-width: 300px;
+      background-color: #e9e8d9;
+      box-shadow: 5px 10px rgba(209, 208, 203, 0.8);
+      padding: 20px;
+      height: fit-content;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    select,
+    button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      background-color: white;
+    }
+
+    button {
+      background-color: orange;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: darkorange;
+    }
+
+    .content-section-container {
+      flex: 3 1 600px;
+      background-color: #f3f3e5;
+      padding: 30px;
+    }
+
+    .content-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+    }
+    .logo-img {
+    height: 50px;
+  }
+  
+    @media (max-width: 768px) {
+      .main-content-wrapper {
+        flex-direction: column;
+      }
+
+      .profile-info {
+        flex-direction: column;
+        align-items: flex-end;
+        text-align: right;
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="main-menu">
+    <div class="menu-items">
+      <a class="navbar-brand" href="index.html">
+        <img class="logo-img" src="img/logo_eec.png" alt="logo" />
+      </a>
+      <div class="comon-btn" data-section="home">🏠 Home</div>
+      <div class="profile-info">
+        <div class="profile-text">
+          <div class="profile-name" id="profileName">Student Name</div>
+          <div class="profile-address" id="profileAddress">123 Demo Street</div>
+        </div>
+        <img src="img/pro-view-img.png" alt="Profile Image" class="profile-img" />
+      </div>
+    </div>
+  </div>
+
+
+  <div class="main-content-wrapper">
+ 
+    <div class="filter-card">
+      <p><strong>Tryout</strong></p>
+      <label for="class">Select Class</label>
+      <select id="class">
+        <option value="">--Select Class--</option>
+        <option value="class1">Class 1</option>
+        <option value="class2">Class 2</option>
+        <option value="class3">Class 3</option>
+      </select>
+
+      <label for="level">Select Level</label>
+      <select id="level">
+        <option value="">--Select Level--</option>
+        <option value="basic">Basic Level</option>
+        <option value="intermediate" disabled>Intermediate Level 🔒</option>
+        <option value="advanced" disabled>Advanced Level 🔒</option>
+      </select>
+
+      <button id="showContentBtn">Show Content</button>
+    </div>
+
+
+    <div class="content-section-container">
+      <div class="content-section" id="contentDisplay">
+        <h2>Welcome!</h2>
+        <p>Please select your Class and Level to view the content.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email");
+
+    const classSelect = document.getElementById("class");
+    const levelSelect = document.getElementById("level");
+    const showContentBtn = document.getElementById("showContentBtn");
+    const contentDisplay = document.getElementById("contentDisplay");
+
+    let unlockedLevels = {
+      basic: true,
+      intermediate: false,
+      advanced: false,
+    };
+
+    let currentQuestionIndex = 0;
+    let selectedAnswers = [];
+    let questionsList = [];
+
+    async function loadUserInfo(email) {
+      try {
+        const response = await fetch(`http://localhost:3000/api/profile/view/${encodeURIComponent(email)}`);
+        if (!response.ok) throw new Error("User not found");
+        const user = await response.json();
+
+        document.getElementById("profileName").textContent = user.fullName || 'Student Name';
+        document.getElementById("profileAddress").textContent = user.homeAddress || 'Address not available';
+
+        unlockedLevels = user.unlockedLevels || unlockedLevels;
+        updateLevelOptions();
+      } catch (error) {
+        console.warn("Using fallback profile info:", error);
+        document.getElementById("profileName").textContent = 'Test Student';
+        document.getElementById("profileAddress").textContent = '123 Demo Street';
+      }
+    }
+
+    function updateLevelOptions() {
+      document.querySelector("option[value='intermediate']").disabled = !unlockedLevels.intermediate;
+      document.querySelector("option[value='advanced']").disabled = !unlockedLevels.advanced;
+    }
+
+    async function fetchQuestions(classId, level) {
+      try {
+        const response = await fetch(`http://localhost:3000/api/quiz/${classId}/${level}`);
+        if (response.ok) {
+          return await response.json();
+        } else {
+          throw new Error("Failed to fetch quiz questions");
+        }
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+        alert("There was an error loading the quiz.");
+        return [];
+      }
+    }
+
+    function renderSingleQuestion(questionObj, index, totalQuestions) {
+      const selectedValue = selectedAnswers[index] || "";
+
+      contentDisplay.innerHTML = `
+        <h2>Question ${index + 1} of ${totalQuestions}</h2>
+        <p><strong>${questionObj.question}</strong></p>
+        <form id="questionForm">
+          ${questionObj.options.map(option => `
+            <label>
+              <input type="radio" name="answer" value="${option}" ${option === selectedValue ? 'checked' : ''} required> ${option}
+            </label><br>
+          `).join('')}
+          <div class="button-group">
+            <button type="button" id="prevBtn" ${index === 0 ? 'disabled' : ''}>Previous</button>
+            <button type="submit">${index === totalQuestions - 1 ? 'Submit' : 'Next'}</button>
+          </div>
+        </form>
+      `;
+
+      document.getElementById("questionForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const selectedOption = document.querySelector("input[name='answer']:checked");
+        if (!selectedOption) return;
+
+        selectedAnswers[index] = selectedOption.value;
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questionsList.length) {
+          renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+        } else {
+          try {
+            const submitResponse = await fetch(`http://localhost:3000/api/submit`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email,
+                answers: selectedAnswers,
+                class: classSelect.value,
+                level: levelSelect.value
+              })
+            });
+
+            const result = await submitResponse.json();
+            if (submitResponse.ok) {
+              unlockedLevels = result.unlockedLevels;
+              showResult(result.score, result.total, result.minutesUntilIntermediate, result.minutesUntilAdvanced);
+            } else {
+              throw new Error(result.message || "Submission failed");
+            }
+          } catch (err) {
+            console.error("Submit Error:", err);
+            alert("Failed to submit quiz. Try again.");
+          }
+        }
+      });
+
+      document.getElementById("prevBtn").addEventListener("click", () => {
+        const selectedOption = document.querySelector("input[name='answer']:checked");
+        if (selectedOption) {
+          selectedAnswers[index] = selectedOption.value;
+        }
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+        }
+      });
+    }
+
+    function showResult(score, total, minutesUntilIntermediate, minutesUntilAdvanced) {
+      let percentage = (score / total) * 100;
+
+      let unlockInfo = `
+        <p>⏱ Intermediate unlocks in: ${minutesUntilIntermediate} min</p>
+        <p>⏱ Advanced unlocks in: ${minutesUntilAdvanced} min</p>
+      `;
+
+      contentDisplay.innerHTML = `
+        <h2>Your Score</h2>
+        <p>You scored <strong>${score}</strong> out of <strong>${total}</strong> (${percentage.toFixed(2)}%).</p>
+        ${unlockInfo}
+        <button onclick="window.location.reload()">Try Again / Reload</button>
+      `;
+
+      updateLevelOptions();
+    }
+
+    showContentBtn.addEventListener("click", async () => {
+      const selectedClass = classSelect.value;
+      const selectedLevel = levelSelect.value;
+
+      if (!selectedClass || !selectedLevel) {
+        alert("Please select both Class and Level.");
+        return;
+      }
+
+      if (!unlockedLevels[selectedLevel]) {
+        contentDisplay.innerHTML = `
+          <h2>Access Locked 🔒</h2>
+          <p>Please wait until the level is unlocked based on your registration time.</p>
+        `;
+        return;
+      }
+
+      questionsList = await fetchQuestions(selectedClass, selectedLevel);
+      if (questionsList.length > 0) {
+        currentQuestionIndex = 0;
+        selectedAnswers = [];
+        renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+      }
+    });
+
+ 
+    if (email) {
+      loadUserInfo(email);
+    } else {
+      alert("No email found. Please log in again.");
+    }
+  </script>
+</body>
+</html>
+ -->
+
+<!-- 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portal</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .main-menu { background-color: orange; padding: 20px 30px; }
+    .menu-items { display: flex; justify-content: space-between; align-items: center; color: white; }
+    .comon-btn { background-color: white; color: black; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease; }
+    .comon-btn:hover { background-color: orange; color: white; }
+    .profile-info { display: flex; align-items: center; gap: 15px; }
+    .profile-text { text-align: right; }
+    .profile-name { font-weight: bold; }
+    .profile-address { font-size: 0.9em; }
+    .profile-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid white; }
+    .main-content-wrapper { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; align-items: flex-start; }
+    .filter-card { flex: 1 1 250px; max-width: 300px; background-color: #e9e8d9; box-shadow: 5px 10px rgba(209, 208, 203, 0.8); padding: 20px; height: fit-content; }
+    label { display: block; margin: 10px 0 5px; font-weight: bold; }
+    select, button { width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 20px; border: 1px solid #ccc; background-color: white; }
+    button { background-color: orange; color: white; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    button:hover { background-color: darkorange; }
+    .content-section-container { flex: 3 1 600px; background-color: #f3f3e5; padding: 30px; }
+    .content-section { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+    .button-group { display: flex; justify-content: space-between; }
+    .logo-img { height: 50px; }
+    @media (max-width: 768px) {
+      .main-content-wrapper { flex-direction: column; }
+      .profile-info { flex-direction: column; align-items: flex-end; text-align: right; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="main-menu">
+  <div class="menu-items">
+    <a class="navbar-brand" href="index.html">
+      <img class="logo-img" src="img/logo_eec.png" alt="logo" />
+    </a>
+    <div class="comon-btn" data-section="home">🏠 Home</div>
+    <div class="profile-info">
+      <div class="profile-text">
+        <div class="profile-name" id="profileName">Student Name</div>
+        <div class="profile-address" id="profileAddress">123 Demo Street</div>
+      </div>
+      <img src="img/pro-view-img.png" alt="Profile Image" class="profile-img" />
+    </div>
+  </div>
+</div>
+
+<div class="main-content-wrapper">
+
+  <div class="filter-card">
+    <p><strong>Tryout</strong></p>
+    <label for="class">Select Class</label>
+    <select id="class">
+      <option value="">--Select Class--</option>
+      <option value="class1">Class 1</option>
+      <option value="class2">Class 2</option>
+      <option value="class3">Class 3</option>
+      <option value="class1">Class 4</option>
+      <option value="class2">Class 5</option>
+      <option value="class3">Class 6</option>
+      <option value="class1">Class 7</option>
+      <option value="class2">Class 8</option>
+      <option value="class3">Class 9</option>
+      <option value="class1">Class 10</option>
+      <option value="class2">Class 11</option>
+      <option value="class3">Class 12</option>
+    </select>
+
+    <label for="level">Select Level</label>
+    <select id="level">
+      <option value="">--Select Level--</option>
+      <option value="basic">Basic Level</option>
+      <option value="intermediate" disabled>Intermediate Level 🔒</option>
+      <option value="advanced" disabled>Advanced Level 🔒</option>
+    </select>
+
+    <label for="subject">Select Subject</label>
+    <select id="subject">
+      <option value="">--Select Subject--</option>
+      <option value="math">Math</option>
+      <option value="science">Science</option>
+      <option value="english">English</option>
+    </select>
+
+    <button id="showContentBtn">Show Content</button>
+  </div>
+
+  <div class="content-section-container">
+    <div class="content-section" id="contentDisplay">
+      <h2>Welcome!</h2>
+      <p>Please select your Class, Level, and Subject to view the quiz.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get("email");
+
+  const classSelect = document.getElementById("class");
+  const levelSelect = document.getElementById("level");
+  const subjectSelect = document.getElementById("subject");
+  const showContentBtn = document.getElementById("showContentBtn");
+  const contentDisplay = document.getElementById("contentDisplay");
+
+  let unlockedLevels = {
+    basic: true,
+    intermediate: false,
+    advanced: false,
+  };
+
+  let currentQuestionIndex = 0;
+  let selectedAnswers = [];
+  let questionsList = [];
+
+  async function loadUserInfo(email) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/profile/view/${encodeURIComponent(email)}`);
+      if (!response.ok) throw new Error("User not found");
+      const user = await response.json();
+
+      document.getElementById("profileName").textContent = user.fullName || 'Student Name';
+      document.getElementById("profileAddress").textContent = user.homeAddress || 'Address not available';
+
+      unlockedLevels = user.unlockedLevels || unlockedLevels;
+      updateLevelOptions();
+    } catch (error) {
+      console.warn("Using fallback profile info:", error);
+      document.getElementById("profileName").textContent = 'Test Student';
+      document.getElementById("profileAddress").textContent = '123 Demo Street';
+    }
+  }
+
+  function updateLevelOptions() {
+    document.querySelector("option[value='intermediate']").disabled = !unlockedLevels.intermediate;
+    document.querySelector("option[value='advanced']").disabled = !unlockedLevels.advanced;
+  }
+
+  async function fetchQuestions(classId, level, subject) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/quiz/${classId}/${level}/${subject}`);
+      if (response.ok) {
+        return await response.json();
+      } else {
+        throw new Error("Failed to fetch quiz questions");
+      }
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+      alert("There was an error loading the quiz.");
+      return [];
+    }
+  }
+
+  function renderSingleQuestion(questionObj, index, totalQuestions) {
+    const selectedValue = selectedAnswers[index] || "";
+
+    contentDisplay.innerHTML = `
+      <h2>Question ${index + 1} of ${totalQuestions}</h2>
+      <p><strong>${questionObj.question}</strong></p>
+      <form id="questionForm">
+        ${questionObj.options.map(option => `
+          <label>
+            <input type="radio" name="answer" value="${option}" ${option === selectedValue ? 'checked' : ''} required> ${option}
+          </label><br>
+        `).join('')}
+        <div class="button-group">
+          <button type="button" id="prevBtn" ${index === 0 ? 'disabled' : ''}>Previous</button>
+          <button type="submit">${index === totalQuestions - 1 ? 'Submit' : 'Next'}</button>
+        </div>
+      </form>
+    `;
+
+    document.getElementById("questionForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const selectedOption = document.querySelector("input[name='answer']:checked");
+      if (!selectedOption) return;
+
+      selectedAnswers[index] = selectedOption.value;
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < questionsList.length) {
+        renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+      } else {
+        try {
+          const submitResponse = await fetch(`http://localhost:3000/api/submit`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email,
+              answers: selectedAnswers,
+              class: classSelect.value,
+              level: levelSelect.value,
+              subject: subjectSelect.value
+            })
+          });
+
+          const result = await submitResponse.json();
+          if (submitResponse.ok) {
+            unlockedLevels = result.unlockedLevels;
+            showResult(result.score, result.total, result.minutesUntilIntermediate, result.minutesUntilAdvanced);
+          } else {
+            throw new Error(result.message || "Submission failed");
+          }
+        } catch (err) {
+          console.error("Submit Error:", err);
+          alert("Failed to submit quiz. Try again.");
+        }
+      }
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      const selectedOption = document.querySelector("input[name='answer']:checked");
+      if (selectedOption) {
+        selectedAnswers[index] = selectedOption.value;
+      }
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+      }
+    });
+  }
+
+  function showResult(score, total, minutesUntilIntermediate, minutesUntilAdvanced) {
+    let percentage = (score / total) * 100;
+    let unlockInfo = `
+      <p>⏱ Intermediate unlocks in: ${minutesUntilIntermediate} min</p>
+      <p>⏱ Advanced unlocks in: ${minutesUntilAdvanced} min</p>
+    `;
+
+    contentDisplay.innerHTML = `
+      <h2>Your Score</h2>
+      <p>You scored <strong>${score}</strong> out of <strong>${total}</strong> (${percentage.toFixed(2)}%).</p>
+      ${unlockInfo}
+      <button onclick="window.location.reload()">Try Again / Reload</button>
+    `;
+
+    updateLevelOptions();
+  }
+
+  showContentBtn.addEventListener("click", async () => {
+    const selectedClass = classSelect.value;
+    const selectedLevel = levelSelect.value;
+    const selectedSubject = subjectSelect.value;
+
+    if (!selectedClass || !selectedLevel || !selectedSubject) {
+      alert("Please select Class, Level, and Subject.");
+      return;
+    }
+
+    if (!unlockedLevels[selectedLevel]) {
+      contentDisplay.innerHTML = `
+        <h2>Access Locked 🔒</h2>
+        <p>Please wait until the level is unlocked based on your registration time.</p>
+      `;
+      return;
+    }
+
+    questionsList = await fetchQuestions(selectedClass, selectedLevel, selectedSubject);
+    if (questionsList.length > 0) {
+      currentQuestionIndex = 0;
+      selectedAnswers = [];
+      renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+    }
+  });
+
+  if (email) {
+    loadUserInfo(email);
+  } else {
+    alert("No email found. Please log in again.");
+  }
+</script>
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portal</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .main-menu { background-color: orange; padding: 20px 30px; }
+    .menu-items { display: flex; justify-content: space-between; align-items: center; color: white; }
+    .comon-btn { background-color: white; color: black; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease; }
+    .comon-btn:hover { background-color: orange; color: white; }
+    .profile-info { display: flex; align-items: center; gap: 15px; }
+    .profile-text { text-align: right; }
+    .profile-name { font-weight: bold; }
+    .profile-address { font-size: 0.9em; }
+    .profile-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid white; }
+    .main-content-wrapper { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; align-items: flex-start; }
+    .filter-card { flex: 1 1 250px; max-width: 300px; background-color: #e9e8d9; box-shadow: 5px 10px rgba(209, 208, 203, 0.8); padding: 20px; height: fit-content; }
+    label { display: block; margin: 10px 0 5px; font-weight: bold; }
+    select, button { width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 20px; border: 1px solid #ccc; background-color: white; }
+    button { background-color: orange; color: white; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    button:hover { background-color: darkorange; }
+    .content-section-container { flex: 3 1 600px; background-color: #f3f3e5; padding: 30px; }
+    .content-section { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+    .button-group { display: flex; justify-content: space-between; }
+
+    .logo-img { height: 50px; }
+
+  
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 20px;
+      margin-bottom: 20px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    @media (max-width: 768px) {
+      .main-content-wrapper { flex-direction: column; }
+      .profile-info { flex-direction: column; align-items: flex-end; text-align: right; }
+      .options-grid { grid-template-columns: 1fr; } /* Stack vertically on small screens */
+    }
+  </style>
+</head>
+<body>
+
+<div class="main-menu">
+  <div class="menu-items">
+    <a class="navbar-brand" href="index.html">
+      <img class="logo-img" src="img/logo_eec.png" alt="logo" />
+    </a>
+    <div class="comon-btn" data-section="home">🏠 Home</div>
+    <div class="profile-info">
+      <div class="profile-text">
+        <div class="profile-name" id="profileName">Student Name</div>
+        <div class="profile-address" id="profileAddress">123 Demo Street</div>
+      </div>
+      <img src="img/pro-view-img.png" alt="Profile Image" class="profile-img" />
+    </div>
+  </div>
+</div>
+
+<div class="main-content-wrapper">
+  <div class="filter-card">
+    <p><strong>Tryout</strong></p>
+    <label for="class">Select Class</label>
+    <select id="class">
+      <option value="">--Select Class--</option>
+      <option value="class1">Class 1</option>
+      <option value="class2">Class 2</option>
+      <option value="class3">Class 3</option>
+      <option value="class4">Class 4</option>
+      <option value="class5">Class 5</option>
+      <option value="class6">Class 6</option>
+      <option value="class7">Class 7</option>
+      <option value="class8">Class 8</option>
+      <option value="class9">Class 9</option>
+      <option value="class10">Class 10</option>
+      <option value="class11">Class 11</option>
+      <option value="class12">Class 12</option>
+    </select>
+
+    <label for="level">Select Level</label>
+    <select id="level">
+      <option value="">--Select Level--</option>
+      <option value="basic">Basic Level</option>
+      <option value="intermediate" disabled>Intermediate Level 🔒</option>
+      <option value="advanced" disabled>Advanced Level 🔒</option>
+    </select>
+
+    <label for="subject">Select Subject</label>
+    <select id="subject">
+      <option value="">--Select Subject--</option>
+      <option value="math">Math</option>
+      <option value="science">Science</option>
+      <option value="english">English</option>
+    </select>
+
+    <button id="showContentBtn">Show Content</button>
+  </div>
+
+  <div class="content-section-container">
+    <div class="content-section" id="contentDisplay">
+      <h2>Welcome!</h2>
+      <p>Please select your Class, Level, and Subject to view the quiz.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get("email");
+
+  const classSelect = document.getElementById("class");
+  const levelSelect = document.getElementById("level");
+  const subjectSelect = document.getElementById("subject");
+  const showContentBtn = document.getElementById("showContentBtn");
+  const contentDisplay = document.getElementById("contentDisplay");
+
+  let unlockedLevels = {
+    basic: true,
+    intermediate: false,
+    advanced: false,
+  };
+
+  let currentQuestionIndex = 0;
+  let selectedAnswers = [];
+  let questionsList = [];
+
+  async function loadUserInfo(email) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/profile/view/${encodeURIComponent(email)}`);
+      if (!response.ok) throw new Error("User not found");
+      const user = await response.json();
+
+      document.getElementById("profileName").textContent = user.fullName || 'Student Name';
+      document.getElementById("profileAddress").textContent = user.homeAddress || 'Address not available';
+
+      unlockedLevels = user.unlockedLevels || unlockedLevels;
+      updateLevelOptions();
+    } catch (error) {
+      console.warn("Using fallback profile info:", error);
+      document.getElementById("profileName").textContent = 'Test Student';
+      document.getElementById("profileAddress").textContent = '123 Demo Street';
+    }
+  }
+
+  function updateLevelOptions() {
+    document.querySelector("option[value='intermediate']").disabled = !unlockedLevels.intermediate;
+    document.querySelector("option[value='advanced']").disabled = !unlockedLevels.advanced;
+  }
+
+  async function fetchQuestions(classId, level, subject) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/quiz/${classId}/${level}/${subject}`);
+      if (response.ok) {
+        return await response.json();
+      } else {
+        throw new Error("Failed to fetch quiz questions");
+      }
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+      alert("There was an error loading the quiz.");
+      return [];
+    }
+  }
+
+  function renderSingleQuestion(questionObj, index, totalQuestions) {
+    const selectedValue = selectedAnswers[index] || "";
+
+    contentDisplay.innerHTML = `
+      <h2>Question ${index + 1} of ${totalQuestions}</h2>
+      <p><strong>${questionObj.question}</strong></p>
+      <form id="questionForm">
+        <div class="options-grid">
+          ${questionObj.options.map(option => `
+            <label class="option-item">
+              <input type="radio" name="answer" value="${option}" ${option === selectedValue ? 'checked' : ''} required>
+              ${option}
+            </label>
+          `).join('')}
+        </div>
+        <div class="button-group">
+          <button type="button" id="prevBtn" ${index === 0 ? 'disabled' : ''}>Previous</button>
+          <button type="submit">${index === totalQuestions - 1 ? 'Submit' : 'Next'}</button>
+        </div>
+      </form>
+    `;
+
+    document.getElementById("questionForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const selectedOption = document.querySelector("input[name='answer']:checked");
+      if (!selectedOption) return;
+
+      selectedAnswers[index] = selectedOption.value;
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < questionsList.length) {
+        renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+      } else {
+        try {
+          const submitResponse = await fetch(`http://localhost:3000/api/submit`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email,
+              answers: selectedAnswers,
+              class: classSelect.value,
+              level: levelSelect.value,
+              subject: subjectSelect.value
+            })
+          });
+
+          const result = await submitResponse.json();
+          if (submitResponse.ok) {
+            unlockedLevels = result.unlockedLevels;
+            showResult(result.score, result.total, result.minutesUntilIntermediate, result.minutesUntilAdvanced);
+          } else {
+            throw new Error(result.message || "Submission failed");
+          }
+        } catch (err) {
+          console.error("Submit Error:", err);
+          alert("Failed to submit quiz. Try again.");
+        }
+      }
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      const selectedOption = document.querySelector("input[name='answer']:checked");
+      if (selectedOption) {
+        selectedAnswers[index] = selectedOption.value;
+      }
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+      }
+    });
+  }
+
+  function showResult(score, total, minutesUntilIntermediate, minutesUntilAdvanced) {
+    let percentage = (score / total) * 100;
+    let unlockInfo = `
+      <p>⏱ Intermediate unlocks in: ${minutesUntilIntermediate} min</p>
+      <p>⏱ Advanced unlocks in: ${minutesUntilAdvanced} min</p>
+    `;
+
+    contentDisplay.innerHTML = `
+      <h2>Your Score</h2>
+      <p>You scored <strong>${score}</strong> out of <strong>${total}</strong> (${percentage.toFixed(2)}%).</p>
+      ${unlockInfo}
+      <button onclick="window.location.reload()">Try Again / Reload</button>
+    `;
+
+    updateLevelOptions();
+  }
+
+  showContentBtn.addEventListener("click", async () => {
+    const selectedClass = classSelect.value;
+    const selectedLevel = levelSelect.value;
+    const selectedSubject = subjectSelect.value;
+
+    if (!selectedClass || !selectedLevel || !selectedSubject) {
+      alert("Please select Class, Level, and Subject.");
+      return;
+    }
+
+    if (!unlockedLevels[selectedLevel]) {
+      contentDisplay.innerHTML = `
+        <h2>Access Locked 🔒</h2>
+        <p>Please wait until the level is unlocked based on your registration time.</p>
+      `;
+      return;
+    }
+
+    questionsList = await fetchQuestions(selectedClass, selectedLevel, selectedSubject);
+    if (questionsList.length > 0) {
+      currentQuestionIndex = 0;
+      selectedAnswers = [];
+      renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+    }
+  });
+
+  if (email) {
+    loadUserInfo(email);
+  } else {
+    alert("No email found. Please log in again.");
+  }
+</script>
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Portal</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .main-menu { background-color: orange; padding: 20px 30px; }
+    .menu-items { display: flex; justify-content: space-between; align-items: center; color: white; }
+    .comon-btn { background-color: white; color: black; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease; }
+    .comon-btn:hover { background-color: orange; color: white; }
+    .profile-info { display: flex; align-items: center; gap: 15px; }
+    .profile-text { text-align: right; }
+    .profile-name { font-weight: bold; }
+    .profile-address { font-size: 0.9em; }
+    .profile-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid white; }
+    .main-content-wrapper { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; align-items: flex-start; }
+    .filter-card { flex: 1 1 250px; max-width: 300px; background-color: #e9e8d9; box-shadow: 5px 10px rgba(209, 208, 203, 0.8); padding: 20px; height: fit-content; }
+    label { display: block; margin: 10px 0 5px; font-weight: bold; }
+    select, button { width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 20px; border: 1px solid #ccc; background-color: white; }
+    button { background-color: orange; color: white; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    button:hover { background-color: darkorange; }
+    .content-section-container { flex: 3 1 600px; background-color: #f3f3e5; padding: 30px; }
+    .content-section { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+    .button-group { display: flex; justify-content: space-between; }
+    .logo-img { height: 50px; }
+    .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; margin-bottom: 20px; }
+    .option-item { display: flex; align-items: center; gap: 8px; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #ddd; }
+    @media (max-width: 768px) {
+      .main-content-wrapper { flex-direction: column; }
+      .profile-info { flex-direction: column; align-items: flex-end; text-align: right; }
+      .options-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="main-menu">
+  <div class="menu-items">
+    <a class="navbar-brand" href="index.html">
+      <img class="logo-img" src="img/logo_eec.png" alt="logo" />
+    </a>
+    <div class="comon-btn" data-section="home">🏠 Home</div>
+    <div class="profile-info">
+      <div class="profile-text">
+        <div class="profile-name" id="profileName">Student Name</div>
+        <div class="profile-address" id="profileAddress">123 Demo Street</div>
+      </div>
+      <img src="img/pro-view-img.png" alt="Profile Image" class="profile-img" />
+    </div>
+  </div>
+</div>
+
+<div class="main-content-wrapper">
+  <div class="filter-card">
+    <p><strong>Tryout</strong></p>
+    <label for="class">Select Class</label>
+    <select id="class">
+      <option value="">--Select Class--</option>
+      <option value="class1">Class 1</option>
+      <option value="class2">Class 2</option>
+      <option value="class3">Class 3</option>
+      <option value="class4">Class 4</option>
+      <option value="class5">Class 5</option>
+      <option value="class6">Class 6</option>
+      <option value="class7">Class 7</option>
+      <option value="class8">Class 8</option>
+      <option value="class9">Class 9</option>
+      <option value="class10">Class 10</option>
+      <option value="class11">Class 11</option>
+      <option value="class12">Class 12</option>
+    </select>
+
+    <label for="level">Select Level</label>
+    <select id="level">
+      <option value="">--Select Level--</option>
+      <option value="basic">Basic Level</option>
+      <option value="intermediate" disabled>Intermediate Level 🔒</option>
+      <option value="advanced" disabled>Advanced Level 🔒</option>
+    </select>
+
+    <label for="subject">Select Subject</label>
+    <select id="subject">
+      <option value="">--Select Subject--</option>
+      <option value="math">Math</option>
+      <option value="science">Science</option>
+      <option value="english">English</option>
+    </select>
+
+    <button id="showContentBtn">Show Content</button>
+  </div>
+
+  <div class="content-section-container">
+    <div class="content-section" id="contentDisplay">
+      <h2>Welcome!</h2>
+      <p>Please select your Class, Level, and Subject to view the quiz.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get("email");
+
+  const classSelect = document.getElementById("class");
+  const levelSelect = document.getElementById("level");
+  const subjectSelect = document.getElementById("subject");
+  const showContentBtn = document.getElementById("showContentBtn");
+  const contentDisplay = document.getElementById("contentDisplay");
+
+  let unlockedLevels = { basic: true, intermediate: false, advanced: false };
+  let currentQuestionIndex = 0;
+  let selectedAnswers = [];
+  let questionsList = [];
+
+  async function loadUserInfo(email) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/profile/view/${encodeURIComponent(email)}`);
+      if (!response.ok) throw new Error("User not found");
+      const user = await response.json();
+      document.getElementById("profileName").textContent = user.fullName || 'Student Name';
+      document.getElementById("profileAddress").textContent = user.homeAddress || 'Address not available';
+      unlockedLevels = user.unlockedLevels || unlockedLevels;
+      updateLevelOptions();
+    } catch {
+      document.getElementById("profileName").textContent = 'Test Student';
+      document.getElementById("profileAddress").textContent = '123 Demo Street';
+    }
+  }
+
+  function updateLevelOptions() {
+    document.querySelector("option[value='intermediate']").disabled = !unlockedLevels.intermediate;
+    document.querySelector("option[value='advanced']").disabled = !unlockedLevels.advanced;
+  }
+
+  async function fetchQuestions(classId, level, subject) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/quiz/${classId}/${level}/${subject}`);
+      if (!response.ok) throw new Error("Failed to fetch quiz questions");
+      return await response.json();
+    } catch (error) {
+      alert("Error loading quiz.");
+      return [];
+    }
+  }
+
+  function submitQuiz() {
+    fetch(`http://localhost:3000/api/submit`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        answers: selectedAnswers,
+        class: classSelect.value,
+        level: levelSelect.value,
+        subject: subjectSelect.value
+      })
+    })
+    .then(res => res.json().then(data => ({ ok: res.ok, data })))
+    .then(({ ok, data }) => {
+      if (ok) {
+        unlockedLevels = data.unlockedLevels;
+        showResult(data.score, data.total, data.minutesUntilIntermediate, data.minutesUntilAdvanced);
+      } else {
+        throw new Error(data.message || "Submission failed");
+      }
+    })
+    .catch(err => {
+      console.error("Submit Error:", err);
+      alert("Failed to submit quiz.");
+    });
+  }
+
+  function renderSingleQuestion(questionObj, index, totalQuestions) {
+    const selectedValue = selectedAnswers[index] || "";
+
+    contentDisplay.innerHTML = `
+      <h2>Question ${index + 1} of ${totalQuestions}</h2>
+      <p><strong>${questionObj.question}</strong></p>
+      <form id="questionForm">
+        <div class="options-grid">
+          ${questionObj.options.map(option => `
+            <label class="option-item">
+              <input type="radio" name="answer" value="${option}" ${option === selectedValue ? 'checked' : ''} required>
+              ${option}
+            </label>
+          `).join('')}
+        </div>
+        <div class="button-group">
+          <button type="button" id="prevBtn" ${index === 0 ? 'disabled' : ''}>Previous</button>
+          <button type="submit">${index === totalQuestions - 1 ? 'Submit' : 'Next'}</button>
+        </div>
+      </form>
+    `;
+
+    document.getElementById("questionForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const selectedOption = document.querySelector("input[name='answer']:checked");
+      if (!selectedOption) return;
+
+      const selectedValue = selectedOption.value;
+      selectedAnswers[index] = selectedValue;
+      const isCorrect = selectedValue === questionObj.answer;
+
+      if (isCorrect) {
+        contentDisplay.innerHTML = `
+          <h2 style="color: green;">✅ Correct!</h2>
+          <p><strong>Hint:</strong> ${questionObj.hint || "Good job!"}</p>
+          <p style="font-size: 3em;">😊</p>
+        `;
+        
+        setTimeout(() => {
+          currentQuestionIndex++;
+          currentQuestionIndex < questionsList.length
+            ? renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length)
+            : submitQuiz();
+        }, 10000);
+      } else {
+        currentQuestionIndex++;
+        currentQuestionIndex < questionsList.length
+          ? renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length)
+          : submitQuiz();
+      }
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+      }
+    });
+  }
+
+  function showResult(score, total, minutesUntilIntermediate, minutesUntilAdvanced) {
+    let percentage = (score / total) * 100;
+    contentDisplay.innerHTML = `
+      <h2>Your Score</h2>
+      <p>You scored <strong>${score}</strong> out of <strong>${total}</strong> (${percentage.toFixed(2)}%).</p>
+      <p>⏱ Intermediate unlocks in: ${minutesUntilIntermediate} min</p>
+      <p>⏱ Advanced unlocks in: ${minutesUntilAdvanced} min</p>
+      <button onclick="window.location.reload()">Try Again / Reload</button>
+    `;
+    updateLevelOptions();
+  }
+
+  showContentBtn.addEventListener("click", async () => {
+    const selectedClass = classSelect.value;
+    const selectedLevel = levelSelect.value;
+    const selectedSubject = subjectSelect.value;
+
+    if (!selectedClass || !selectedLevel || !selectedSubject) {
+      alert("Please select Class, Level, and Subject.");
+      return;
+    }
+
+    if (!unlockedLevels[selectedLevel]) {
+      contentDisplay.innerHTML = `
+        <h2>Access Locked 🔒</h2>
+        <p>Please wait until this level is unlocked.</p>
+      `;
+      return;
+    }
+
+    questionsList = await fetchQuestions(selectedClass, selectedLevel, selectedSubject);
+    if (questionsList.length > 0) {
+      currentQuestionIndex = 0;
+      selectedAnswers = [];
+      renderSingleQuestion(questionsList[0], 0, questionsList.length);
+    }
+  });
+
+  if (email) {
+    loadUserInfo(email);
+  } else {
+    alert("No email found. Please log in again.");
+  }
+</script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portal</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .main-menu { background-color: orange; padding: 20px 30px; }
+    .menu-items { display: flex; justify-content: space-between; align-items: center; color: white; }
+    .comon-btn { background-color: white; color: black; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease; }
+    .comon-btn:hover { background-color: orange; color: white; }
+    .profile-info { display: flex; align-items: center; gap: 15px; }
+    .profile-text { text-align: right; }
+    .profile-name { font-weight: bold; }
+    .profile-address { font-size: 0.9em; }
+    .profile-wrapper {
+      position: relative; cursor: pointer;
+    }
+    .profile-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid white; }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 0;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      min-width: 150px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: black;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f0f0f0;
+    }
+    .main-content-wrapper { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; align-items: flex-start; }
+    .filter-card { flex: 1 1 250px; max-width: 300px; background-color: #e9e8d9; box-shadow: 5px 10px rgba(209, 208, 203, 0.8); padding: 20px; height: fit-content; }
+    label { display: block; margin: 10px 0 5px; font-weight: bold; }
+    select, button { width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 20px; border: 1px solid #ccc; background-color: white; }
+    button { background-color: orange; color: white; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    button:hover { background-color: darkorange; }
+    .content-section-container { flex: 3 1 600px; background-color: #f3f3e5; padding: 30px; }
+    .content-section { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+    .button-group { display: flex; justify-content: space-between; }
+    .logo-img { height: 50px; }
+    .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; margin-bottom: 20px; }
+    .option-item { display: flex; align-items: center; gap: 8px; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #ddd; }
+    @media (max-width: 768px) { .main-content-wrapper { flex-direction: column; } .profile-info { flex-direction: column; align-items: flex-end; text-align: right; } .options-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="main-menu">
+  <div class="menu-items">
+    <a class="navbar-brand" href="index.html">
+      <img class="logo-img" src="img/logo_eec.png" alt="logo" />
+    </a>
+    <!-- <a class="comon-btn" data-section="home" href="index.html">🏠 Home</a> -->
+    <div class="profile-info">
+      <div class="profile-text">
+        <div class="profile-name" id="profileName">Student Name</div>
+        <div class="profile-address" id="profileAddress">123 Demo Street</div>
+         <div class="profile-class" id="studentClassInfo">Class: N/A</div>
+      </div>
+      <!-- <img src="img/pro-view-img.png" alt="Profile Image" class="profile-img" /> -->
+       <!-- <img src="" alt="Profile Image" class="profile-img" id="profileImage" /> -->
+ <div class="profile-wrapper">
+        <img src="" alt="Profile Image" class="profile-img" id="profileImage"/>
+        <div class="dropdown-menu" id="profileDropdown">
+          <a href="profileview.html" id="profileViewLink">👤 Profile View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-content-wrapper">
+  <div class="filter-card">
+    <p><strong>Tryout</strong></p>
+    <!-- <label for="class">Select Class</label>
+    <select id="class">
+      <option value="">--Select Class--</option>
+      <option value="class1">Class 1</option>
+      <option value="class2">Class 2</option>
+      <option value="class3">Class 3</option>
+      <option value="class4">Class 4</option>
+      <option value="class5">Class 5</option>
+      <option value="class6">Class 6</option>
+      <option value="class7">Class 7</option>
+      <option value="class8">Class 8</option>
+      <option value="class9">Class 9</option>
+      <option value="class10">Class 10</option>
+      <option value="class11">Class 11</option>
+      <option value="class12">Class 12</option>
+    </select> -->
+
+    <label for="level">Select Level</label>
+    <select id="level">
+      <option value="">--Select Level--</option>
+      <option value="basic">Basic Level</option>
+      <option value="intermediate" disabled>Intermediate Level 🔒</option>
+      <option value="advanced" disabled>Advanced Level 🔒</option>
+    </select>
+
+    <label for="subject">Select Subject</label>
+    <select id="subject">
+      <option value="">--Select Subject--</option>
+      <option value="math">Math</option>
+      <option value="science">Science</option>
+      <option value="english">English</option>
+    </select>
+
+    <button id="showContentBtn">Show Content</button>
+  </div>
+
+  <div class="content-section-container">
+    <div class="content-section" id="contentDisplay">
+      <h2>Welcome!</h2>
+      <p>Please select your Class, Level, and Subject to view the quiz.</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get("email");
+
+  // const classSelect = document.getElementById("class");
+  const levelSelect = document.getElementById("level");
+  const subjectSelect = document.getElementById("subject");
+  const showContentBtn = document.getElementById("showContentBtn");
+  const contentDisplay = document.getElementById("contentDisplay");
+  const profileViewLink = document.getElementById("profileViewLink");
+
+  let unlockedLevels = {
+    basic: true,
+    intermediate: false,
+    advanced: false,
+  };
+
+  let userClass = "";
+  let currentQuestionIndex = 0;
+  let selectedAnswers = [];
+  let questionsList = [];
+
+  async function loadUserInfo(email) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/profile/view/${encodeURIComponent(email)}`);
+      if (!response.ok) throw new Error("User not found");
+      const user = await response.json();
+
+      document.getElementById("profileName").textContent = user.fullName || 'Student Name';
+      document.getElementById("profileAddress").textContent = user.homeAddress || 'Address not available';
+          document.getElementById("studentClassInfo").textContent = `Class: ${user.class || 'N/A'}`;
+      document.getElementById("profileImage").src = user.profileImage || "img/pro-view-img.png";
+
+      userClass = (user.class || "").toLowerCase().replace(/\s+/g, "");
+      unlockedLevels = user.unlockedLevels || unlockedLevels;
+      updateLevelOptions();
+    } catch (error) {
+      console.warn("Using fallback profile info:", error);
+      document.getElementById("profileName").textContent = 'Test Student';
+      document.getElementById("profileAddress").textContent = '123 Demo Street';
+    }
+  }
+
+  function updateLevelOptions() {
+    document.querySelector("option[value='intermediate']").disabled = !unlockedLevels.intermediate;
+    document.querySelector("option[value='advanced']").disabled = !unlockedLevels.advanced;
+  }
+
+  async function fetchQuestions(classId, level, subject) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/quiz/${classId}/${level}/${subject}`);
+      if (response.ok) {
+        return await response.json();
+      } else {
+        throw new Error("Failed to fetch quiz questions");
+      }
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+      alert("There was an error loading the quiz.");
+      return [];
+    }
+  }
+
+
+  function renderSingleQuestion(questionObj, index, totalQuestions) {
+  const selectedValue = selectedAnswers[index] || "";
+
+  contentDisplay.innerHTML =
+    `<h2 style="padding-left:400px">Question ${index + 1} of ${totalQuestions}</h2>
+     <p style="font-size:24px"><strong>${questionObj.question}</strong></p>
+     <form id="questionForm">
+       <div class="options-grid">
+         ${questionObj.options.map(option => `
+           <label class="option-item">
+             <input type="radio" name="answer" value="${option}" ${option === selectedValue ? 'checked' : ''} required>
+             ${option}
+           </label>
+         `).join('')}
+       </div>
+       <button type="submit">Submit Answer</button>
+     </form>`;
+
+  document.getElementById("questionForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const selectedOption = document.querySelector("input[name='answer']:checked");
+    if (!selectedOption) return;
+
+    const selectedValue = selectedOption.value;
+    selectedAnswers[index] = selectedValue;
+
+    const isCorrect = selectedValue === questionObj.answer;
+    const hint = questionObj.hint || "Review this topic again.";
+
+    const feedback = isCorrect
+      ? `<h2 style="color: green;">✅ Correct!</h2>
+<p style="font-size: 25px;"><span style="text-decoration: underline;">Hint:</span> ${hint}</p>
+         <p style="font-size: 3em;">😊</p>`
+      : `<h2 style="color: red;">❌ Wrong Answer</h2>
+         <p><strong>Hint:</strong> ${hint}</p>
+         <p style="font-size: 3em;">😞</p>`;
+
+    const navButtons = `
+      <div class="button-group">
+        <button type="button" id="prevBtn" ${index === 0 ? 'disabled' : ''}>Previous</button>
+        <button type="button" id="nextBtn">${index === totalQuestions - 1 ? 'Submit' : 'Next'}</button>
+      </div>
+    `;
+
+    contentDisplay.innerHTML = feedback + navButtons;
+
+    // Add navigation button functionality
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questionsList.length) {
+        renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+      } else {
+        submitQuiz();
+      }
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+      }
+    });
+  });
+}
+
+
+  async function submitQuiz() {
+    contentDisplay.innerHTML = `<h2>Submitting...</h2><p>Please wait...</p>`;
+
+    try {
+      const response = await fetch("http://localhost:3000/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          answers: selectedAnswers,
+          class: userClass,
+          level: levelSelect.value,
+          subject: subjectSelect.value
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        unlockedLevels = result.unlockedLevels;
+        updateLevelOptions();
+
+        const percentage = ((result.score / result.total) * 100).toFixed(2);
+        let message = `
+          <h2>Your Score</h2>
+          <p>You scored <strong>${result.score}</strong> out of <strong>${result.total}</strong> (${percentage}%).</p>
+          <p>⏱ Intermediate unlocks in: ${result.minutesUntilIntermediate} min</p>
+          <p>⏱ Advanced unlocks in: ${result.minutesUntilAdvanced} min</p>
+        `;
+
+        if (percentage >= 80) {
+          message += `
+            <h3 style="color: green;">🎉 Congratulations!!!</h3>
+            <p style="font-size: 3em;">🏆😊</p>
+          `;
+        } else {
+          message += `
+            <h3 style="color: red;">😞 Oops! Try again.</h3>
+            <p style="font-size: 3em;">💪</p>
+          `;
+        }
+
+        message += `<button onclick="window.location.reload()">Try Again / Reload</button>`;
+        contentDisplay.innerHTML = message;
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (err) {
+      console.error("Submit Error:", err);
+      alert("Failed to submit quiz. Try again.");
+      contentDisplay.innerHTML = `<h2>Submission Failed</h2><p>Try again later.</p>`;
+    }
+  }
+
+  showContentBtn.addEventListener("click", async () => {
+    // const selectedClass = classSelect.value;
+    const selectedLevel = levelSelect.value;
+    const selectedSubject = subjectSelect.value;
+
+    if (!userClass || !selectedLevel || !selectedSubject) {
+      alert("Please select Class, Level, and Subject.");
+      return;
+    }
+
+    if (!unlockedLevels[selectedLevel]) {
+      contentDisplay.innerHTML = `
+        <h2>Access Locked 🔒</h2>
+        <p>Please wait until the level is unlocked based on your registration time.</p>
+      `;
+      return;
+    }
+
+    questionsList = await fetchQuestions(userClass, selectedLevel, selectedSubject);
+    if (questionsList.length > 0) {
+      currentQuestionIndex = 0;
+      selectedAnswers = [];
+      renderSingleQuestion(questionsList[currentQuestionIndex], currentQuestionIndex, questionsList.length);
+    }
+  });
+
+  // Dropdown toggle and email link
+  const profileWrapper = document.querySelector(".profile-wrapper");
+  const profileDropdown = document.getElementById("profileDropdown");
+
+  profileWrapper.addEventListener("click", () => {
+    profileDropdown.style.display = profileDropdown.style.display === "block" ? "none" : "block";
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!profileWrapper.contains(event.target)) {
+      profileDropdown.style.display = "none";
+    }
+  });
+
+
+  if (email) {
+    loadUserInfo(email);
+    profileViewLink.href = `profileview.html?email=${encodeURIComponent(email)}`;
+  } else {
+    alert("No email found. Please log in again.");
+  }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

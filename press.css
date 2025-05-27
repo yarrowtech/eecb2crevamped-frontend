@@ -1,0 +1,217 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Lato", "Roboto", sans-serif;
+    color: #333;
+    background-color: #fff;
+    line-height: 1.6;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    background-image: url("https://media.istockphoto.com/id/1227064104/photo/hand-choosing-green-happy-smiley-face-paper-cut-product-user-service-feedback-rating-and.jpg?b=1&s=612x612&w=0&k=20&c=y2IuEsU3yoNSHpy-8TdI3lrhG92-ySTGllz8ihmevw8="); /* Download and save the iStock image as hero.jpg */
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .hero-content {
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  /* Intro Section */
+  .intro-section {
+    padding: 60px 20px 30px;
+    text-align: center;
+  }
+  
+  .main-heading {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .intro-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  
+  /* Info Sections */
+  .info-section {
+    padding: 60px 20px;
+  }
+  
+  .light-bg {
+    background-color: #f8f9fa;
+  }
+  
+  .flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .flex-row.reverse {
+    flex-direction: row-reverse;
+  }
+  
+  .info-image-box,
+  .info-text {
+    flex: 1 1 45%;
+  }
+  
+  .info-text h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #007bff;
+  }
+  
+  .info-text p {
+    font-size: 1rem;
+  }
+  
+  /* Stay Updated Section */
+  .lead {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .flex-row,
+    .flex-row.reverse {
+      flex-direction: column;
+    }
+  
+    .main-heading {
+      font-size: 2rem;
+    }
+  
+    .lead {
+      font-size: 1rem;
+    }
+  
+    .info-text h2 {
+      font-size: 1.5rem;
+    }
+  }
+  .footer-wrapper {
+    background-color: #0975a3;
+    padding-top: 20px;
+  }
+  
+  footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0 15px;
+  }
+  
+  .footer-column {
+    flex: 1 1 200px;
+    min-width: 200px;
+  }
+  
+  .footer-column h5 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-column ul li a {
+    color: #fbbe06;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer-column ul li a:hover {
+    color: #007bff;
+  }
+  
+  .footer-icons a {
+    margin-right: 10px;
+    display: inline-block;
+  }
+  
+  .footer-icons img {
+    width: 24px;
+    height: auto;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px 0;
+    border-top: 1px solid #ccc;
+    color: #fbbe06;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-row {
+      flex-direction: column;
+    }
+  }
+  

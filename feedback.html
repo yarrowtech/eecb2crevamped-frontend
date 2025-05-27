@@ -1,0 +1,522 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Luxury Survey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #1a1a1a;
+      color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+       background: url('https://images.blocksurvey.io/cdn-cgi/imagedelivery/G6cPOuGZ4Z_bEV13gBxixw/templates/testnet-feeback-form.svg/l') no-repeat center center;
+    }
+
+    form {
+      background-color: #2c2c2c;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: gold;
+      margin-bottom: 30px;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 20px 0 10px;
+      color: #e0e0e0;
+    }
+
+    label {
+      font-size: 16px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      accent-color: gold;
+      margin-right: 6px;
+    }
+
+    input[type="email"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 20px;
+    }
+
+    input[type="email"] {
+      background-color: #444;
+      color: #fff;
+    }
+
+    input[type="submit"] {
+      color: #1a1a1a;
+      background: gold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background: #d4af37;
+    }
+
+    .message {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <form id="surveyForm">
+    <h2>Survey Form</h2>
+
+    <input type="email" id="email" name="email" placeholder="Enter your email" readonly required>
+
+    <p>1. Do you enjoy working in a team environment?</p>
+    <input type="radio" id="q1yes" name="q1" value="true" required>
+    <label for="q1yes">Yes</label>
+    <input type="radio" id="q1no" name="q1" value="false">
+    <label for="q1no">No</label>
+
+    <p>2. Have you ever traveled outside your home country?</p>
+    <input type="radio" id="q2yes" name="q2" value="true" required>
+    <label for="q2yes">Yes</label>
+    <input type="radio" id="q2no" name="q2" value="false">
+    <label for="q2no">No</label>
+
+    <p>3. Do you prefer working remotely over going to the office?</p>
+    <input type="radio" id="q3yes" name="q3" value="true" required>
+    <label for="q3yes">Yes</label>
+    <input type="radio" id="q3no" name="q3" value="false">
+    <label for="q3no">No</label>
+
+    <p>4. Would you be interested in attending a training workshop next month?</p>
+    <input type="radio" id="q4yes" name="q4" value="true" required>
+    <label for="q4yes">Yes</label>
+    <input type="radio" id="q4no" name="q4" value="false">
+    <label for="q4no">No</label>
+
+    <input type="submit" value="Submit">
+    <div class="message" id="message"></div>
+  </form>
+
+
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="successModalLabel">Thank You!</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="modalMessage">Your responses have been submitted successfully.</p>
+        </div>
+        <div class="modal-footer border-0">
+          <button id="nextBtnInModal" class="btn btn-warning">
+            <i class="fas fa-comments me-2"></i>Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const email = params.get("email");
+      if (email) {
+        document.getElementById("email").value = decodeURIComponent(email);
+      }
+    });
+
+    const form = document.getElementById("surveyForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const questions = {
+        q1: form.q1.value === "true",
+        q2: form.q2.value === "true",
+        q3: form.q3.value === "true",
+        q4: form.q4.value === "true",
+      };
+
+      try {
+        const response = await fetch("http://localhost:3000/api/survey", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, questions }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          const modalMessage = document.getElementById("modalMessage");
+          modalMessage.textContent = data.message || "Thank you for your submission!";
+          new bootstrap.Modal(document.getElementById("successModal")).show();
+        } else {
+          message.style.color = "red";
+          message.textContent = data.message || "Submission failed.";
+        }
+      } catch (err) {
+        message.style.color = "red";
+        message.textContent = "Server error. Please try again later.";
+      }
+    });
+
+    document.getElementById("nextBtnInModal").addEventListener("click", () => {
+      const email = document.getElementById("email").value.trim();
+      const encodedEmail = encodeURIComponent(email);
+      window.location.href = `quiz.html?email=${encodedEmail}`;
+    });
+  </script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  async function startPayment(email) {
+    const res = await fetch("http://localhost:3000/api/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: 499 }) 
+    });
+
+    const order = await res.json();
+
+    const options = {
+      key: "YOUR_PUBLIC_KEY", 
+      amount: order.amount,
+      currency: order.currency,
+      name: "Luxury Quiz Competition",
+      description: "Entry Fee",
+      order_id: order.id,
+      handler: async function (response) {
+        const verify = await fetch("http://localhost:3000/api/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(response),
+        });
+
+        const result = await verify.json();
+        if (result.status === "success") {
+          window.location.href = `quiz.html?email=${encodeURIComponent(email)}`;
+        } else {
+          alert("Payment verification failed");
+        }
+      },
+      prefill: {
+        email: email,
+      },
+      theme: {
+        color: "#FEC601"
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+  }
+
+  document.getElementById("nextBtnInModal").addEventListener("click", () => {
+    const email = document.getElementById("email").value.trim();
+    const confirmed = confirm("Do you want to participate in the quiz competition? Entry fee is ₹499.");
+    if (confirmed) {
+      startPayment(email);
+    }
+  });
+</script>
+
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Luxury Survey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #1a1a1a;
+      color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: url('https://images.blocksurvey.io/cdn-cgi/imagedelivery/G6cPOuGZ4Z_bEV13gBxixw/templates/testnet-feeback-form.svg/l') no-repeat center center;
+    }
+
+    form {
+      background-color: #2c2c2c;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: gold;
+      margin-bottom: 30px;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 20px 0 10px;
+      color: #e0e0e0;
+    }
+
+    label {
+      font-size: 16px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      accent-color: gold;
+      margin-right: 6px;
+    }
+
+    input[type="email"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 20px;
+    }
+
+    input[type="email"] {
+      background-color: #444;
+      color: #fff;
+    }
+
+    input[type="submit"] {
+      color: #1a1a1a;
+      background: gold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background: #d4af37;
+    }
+
+    .message {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .modal-content {
+      border-radius: 12px;
+      border: 1px solid #444;
+    }
+
+    .modal-body p {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <form id="surveyForm">
+    <h2>Survey Form</h2>
+
+    <input type="email" id="email" name="email" placeholder="Enter your email" readonly required>
+
+    <p>1. Do you enjoy working in a team environment?</p>
+    <input type="radio" id="q1yes" name="q1" value="true" required>
+    <label for="q1yes">Yes</label>
+    <input type="radio" id="q1no" name="q1" value="false">
+    <label for="q1no">No</label>
+
+    <p>2. Have you ever traveled outside your home country?</p>
+    <input type="radio" id="q2yes" name="q2" value="true" required>
+    <label for="q2yes">Yes</label>
+    <input type="radio" id="q2no" name="q2" value="false">
+    <label for="q2no">No</label>
+
+    <p>3. Do you prefer working remotely over going to the office?</p>
+    <input type="radio" id="q3yes" name="q3" value="true" required>
+    <label for="q3yes">Yes</label>
+    <input type="radio" id="q3no" name="q3" value="false">
+    <label for="q3no">No</label>
+
+    <p>4. Would you be interested in attending a training workshop next month?</p>
+    <input type="radio" id="q4yes" name="q4" value="true" required>
+    <label for="q4yes">Yes</label>
+    <input type="radio" id="q4no" name="q4" value="false">
+    <label for="q4no">No</label>
+
+    <input type="submit" value="Submit">
+    <div class="message" id="message"></div>
+  </form>
+
+  <!-- ✅ Submission Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="successModalLabel">Thank You!</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="modalMessage">Your responses have been submitted successfully.</p>
+        </div>
+        <div class="modal-footer border-0">
+          <button id="nextBtnInModal" class="btn btn-warning">
+            <i class="fas fa-comments me-2"></i>Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Confirmation Modal -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="confirmationModalLabel">Ready to Join?</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p class="fs-5">Do you want to participate in the <strong>Quiz Competition</strong>?<br>
+            <span class="text-warning">Entry fee is ₹100.</span></p>
+        </div>
+        <div class="modal-footer border-0 justify-content-center">
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+          <button id="payNowBtn" class="btn btn-warning">Pay & Join</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const email = params.get("email");
+      if (email) {
+        document.getElementById("email").value = decodeURIComponent(email);
+      }
+    });
+
+    const form = document.getElementById("surveyForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const questions = {
+        q1: form.q1.value === "true",
+        q2: form.q2.value === "true",
+        q3: form.q3.value === "true",
+        q4: form.q4.value === "true",
+      };
+
+      try {
+        const response = await fetch("http://localhost:3000/api/survey", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, questions }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          document.getElementById("modalMessage").textContent = data.message || "Thank you for your submission!";
+          new bootstrap.Modal(document.getElementById("successModal")).show();
+        } else {
+          message.style.color = "red";
+          message.textContent = data.message || "Submission failed.";
+        }
+      } catch (err) {
+        message.style.color = "red";
+        message.textContent = "Server error. Please try again later.";
+      }
+    });
+
+    // Show confirmation modal instead of confirm()
+    document.getElementById("nextBtnInModal").addEventListener("click", () => {
+      new bootstrap.Modal(document.getElementById("confirmationModal")).show();
+    });
+
+    // Pay & Join Button
+    document.getElementById("payNowBtn").addEventListener("click", () => {
+      const email = document.getElementById("email").value.trim();
+      startPayment(email);
+    });
+
+    async function startPayment(email) {
+      const res = await fetch("http://localhost:3000/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: 499 }) // ₹499
+      });
+
+      const order = await res.json();
+
+      const options = {
+        key: "YOUR_PUBLIC_KEY", // Replace with your Razorpay public key
+        amount: order.amount,
+        currency: order.currency,
+        name: "Luxury Quiz Competition",
+        description: "Entry Fee",
+        order_id: order.id,
+        handler: async function (response) {
+          const verify = await fetch("http://localhost:3000/api/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(response),
+          });
+
+          const result = await verify.json();
+          if (result.status === "success") {
+            window.location.href = `quiz.html?email=${encodeURIComponent(email)}`;
+          } else {
+            alert("Payment verification failed");
+          }
+        },
+        prefill: { email: email },
+        theme: { color: "#FEC601" }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    }
+  </script>
+</body>
+</html>

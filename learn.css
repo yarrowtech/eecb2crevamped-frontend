@@ -1,0 +1,152 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Lato", "Roboto", sans-serif;
+    background-color: #fff;
+    color: #222;
+    line-height: 1.6;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .hero-image-wrapper {
+    width: 100%;
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Boards Section */
+  .boards-section {
+    padding: 60px 20px 40px;
+  }
+  
+  .boards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .board-card {
+    flex: 1 1 200px;
+    max-width: 220px;
+    text-align: center;
+  }
+  
+  .board-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 15px;
+  }
+  
+  .board-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .board-card {
+      max-width: 160px;
+    }
+  
+    .board-logo {
+      width: 80px;
+      height: 80px;
+    }
+  
+    .board-card h4 {
+      font-size: 1rem;
+    }
+  }
+  .footer-wrapper {
+    background-color: #0975a3;
+    padding-top: 20px;
+  }
+  
+  footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0 15px;
+  }
+  
+  .footer-column {
+    flex: 1 1 200px;
+    min-width: 200px;
+  }
+  
+  .footer-column h5 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-column ul li a {
+    color: #fbbe06;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer-column ul li a:hover {
+    color: #007bff;
+  }
+  
+  .footer-icons a {
+    margin-right: 10px;
+    display: inline-block;
+  }
+  
+  .footer-icons img {
+    width: 24px;
+    height: auto;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px 0;
+    border-top: 1px solid #ccc;
+    color: #fbbe06;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-row {
+      flex-direction: column;
+    }
+  }
+  

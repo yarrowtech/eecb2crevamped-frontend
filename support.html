@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EEC | Support Center</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+        background-color: #f2f2f2;
+        color: #333;
+        /* padding: 40px 20px; */
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.5rem;
+        color: #1e90ff;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .left-col,
+      .right-col {
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      }
+
+      .left-col {
+        flex: 1 1 300px;
+        max-width: 350px;
+      }
+
+      .right-col {
+        flex: 2 1 600px;
+      }
+
+      .left-col input[type="search"] {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 10px;
+      }
+
+      h3 {
+        margin-bottom: 20px;
+        font-size: 1.4rem;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 8px;
+        color: #333;
+      }
+
+      .faq-section {
+        margin-bottom: 20px;
+      }
+
+      .faq-question {
+        background: #f6f6f6;
+        padding: 15px;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .faq-question:hover {
+        background: #eaeaea;
+      }
+
+      .faq-answer {
+        padding: 15px;
+        background: #fff;
+        border-left: 4px solid #1e90ff;
+        border-radius: 0 0 6px 6px;
+        display: none;
+        margin-bottom: 10px;
+      }
+
+      .faq-item.open .faq-answer {
+        display: block;
+      }
+
+      @media (max-width: 768px) {
+        .row {
+          flex-direction: column;
+        }
+
+        .left-col,
+        .right-col {
+          max-width: 100%;
+        }
+      }
+
+      .footer-wrapper {
+        background-color: #0975a3;
+        padding-top: 20px;
+      }
+
+      footer {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .footer-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 0 15px;
+      }
+
+      .footer-column {
+        flex: 1 1 200px;
+        min-width: 200px;
+      }
+
+      .footer-column h5 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .footer-column ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #fbbe06;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: #007bff;
+      }
+
+      .footer-icons a {
+        margin-right: 10px;
+        display: inline-block;
+      }
+
+      .footer-icons img {
+        width: 24px;
+        height: auto;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        margin-top: 30px;
+        padding: 15px 0;
+        border-top: 1px solid #ccc;
+        color: #fbbe06;
+        font-size: 14px;
+      }
+
+      @media (max-width: 768px) {
+        .footer-row {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Support Center</h1>
+      <div class="row">
+        <!-- <div class="left-col">
+          <h3>Quick Search</h3>
+          <input type="search" placeholder="Search here..." />
+        </div> -->
+
+        <div class="right-col">
+          <h3>General Questions</h3>
+
+          <div class="faq-section">
+            <div class="faq-item">
+              <div class="faq-question">
+                What is EEC? Why Choose Us for Education?
+              </div>
+              <div class="faq-answer">
+                <p>
+                  EEC (Electronic Educare) is a smart learning platform for
+                  students from Class 1 to 12, powered by AI and ML to
+                  personalize and enhance learning.
+                </p>
+                <ul>
+                  <li>Adaptive Smart Learning</li>
+                  <li>Gamified Progress</li>
+                  <li>Concept Videos & Worksheets</li>
+                  <li>CBSE, ICSE & State Board Alignment</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">Who We Are?</div>
+              <div class="faq-answer">
+                <p>
+                  We are a team of educators, technologists, and innovators
+                  dedicated to transforming the way students learn through
+                  personalized education.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">What is Our Aim?</div>
+              <div class="faq-answer">
+                <ul>
+                  <li>Provide personalized learning paths</li>
+                  <li>Reduce exam pressure</li>
+                  <li>Make learning engaging and efficient</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                Types of Experiential Learning Solutions with EEC
+              </div>
+              <div class="faq-answer">
+                <ul>
+                  <li>Interactive Challenges & Quizzes</li>
+                  <li>AI-based Learning Paths</li>
+                  <li>Gamified Learning Experience</li>
+                  <li>Concept Videos & Activities</li>
+                  <li>Parent Dashboard & Progress Reports</li>
+                  <li>Screen Time-Conscious Design</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Toggle open class to show/hide answer
+      document.querySelectorAll(".faq-question").forEach((question) => {
+        question.addEventListener("click", () => {
+          const faqItem = question.parentElement;
+          faqItem.classList.toggle("open");
+        });
+      });
+    </script>
+    <div class="footer-wrapper">
+      <footer>
+        <div class="footer-row">
+          <!-- Quick Links -->
+          <div class="footer-column">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="support.html">Support</a></li>
+              <li><a href="marketing.html">Marketing</a></li>
+              <li><a href="learn&revise.html">Boards</a></li>
+            </ul>
+          </div>
+
+          <!-- EEC Links -->
+          <div class="footer-column">
+            <h5>EEC</h5>
+            <ul>
+              <li><a href="analytic.html">Unlock precise analytics</a></li>
+              <li><a href="ai.html">AI Engine guides</a></li>
+              <li><a href="product_adv.html">Product Advantages</a></li>
+              <li><a href="tollered.html">Tailored Content</a></li>
+              <li><a href="e-learn-well.html">Enhance learning</a></li>
+              <li><a href="aim.html">Best Solutions</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact Us -->
+          <div class="footer-column">
+            <h5>Contact Us</h5>
+            <ul>
+              <li><a href="career2.html">Career</a></li>
+              <li><a href="press.html">Press</a></li>
+              <li><a href="office.html">Office</a></li>
+            </ul>
+          </div>
+
+          <!-- Follow Us -->
+          <div class="footer-column">
+            <h5>Follow Us</h5>
+            <div class="footer-icons">
+              <a href="#"
+                ><img src="img/facebook-white-icon.png" alt="Facebook"
+              /></a>
+              <!-- <a href="#"><img src="img/twitter-icon.png" alt="Twitter"></a> -->
+              <a href="#"
+                ><img src="img/linkedin-white-icon.png" alt="LinkedIn"
+              /></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2025 EEC Learning. All Rights Reserved.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+.main-menu {
+  background-color: orange;
+  padding: 25px 0;
+  text-align: center;
+}
+
+.menu-items {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.comon-btn {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 10px 15px;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.comon-btn:hover {
+  background-color: orange;
+  color: white;
+}
+
+/* Layout */
+.main-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Sidebar */
+.filter-card {
+  flex: 1 1 300px;
+  max-width: 300px;
+  background-color: #e9e8d9;
+  box-shadow: 5px 10px rgba(209, 208, 203, 0.8);
+  padding: 20px;
+  height: fit-content;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+select, button {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+button {
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: darkorange;
+}
+
+/* Content Section */
+.content-section-container {
+  flex: 3 1 700px;
+  background-color: #f3f3e5;
+  padding: 30px;
+}
+
+.content-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content-wrapper {
+    flex-direction: column;
+  }
+}

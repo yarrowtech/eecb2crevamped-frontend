@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EEC - Book Your Free Session & Learning Programs</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <!-- <div id="popupForm" class="popup-form-container">
+      <div class="popup-form">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h2>Get Started with EEC</h2>
+        <form>
+          <label for="name">Name:</label>
+          <input type="text" id="name" placeholder="Your Name" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" placeholder="Your Email" required />
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div> -->
+
+    <div class="topbar">
+      <!-- Left scrolling text -->
+      <div class="left-scroll">
+        <div class="scroll-content">
+          <i class="fas fa-mobile-alt"></i>
+          <span> +91 9830590929</span>
+          <span class="divider">|</span>
+          <i class="fas fa-envelope"></i>
+          <span> eec@electroniceducare.com</span>
+        </div>
+      </div>
+
+      <!-- Right social media icons -->
+      <div class="right">
+        <a href="#"
+          ><img src="img/facebook-white-icon.png" alt="Facebook" width="24"
+        /></a>
+        <a href="#"
+          ><img src="img/linkedin-white-icon.png" alt="LinkedIn" width="24"
+        /></a>
+      </div>
+    </div>
+    <div class="container-wrapper">
+      <nav class="navbar">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img class="logo-img" src="img/logo_eec.png" alt="logo" />
+          </a>
+
+          <!-- Toggle button for mobile view -->
+          <button class="navbar-toggler" id="menu-toggle">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Main Nav -->
+          <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#">EEC</a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="analytic.html"
+                    >Unlock precise analytics</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="ai.html">AI Engine guides</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="product_adv.html"
+                    >Product Advantages</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="tollered.html"
+                    >Tailored Content</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="e-learn-well.html"
+                    >Enhance learning</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="aim.html">Best Solutions</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#">Contact Us</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="career2.html">Career</a></li>
+                <li><a class="dropdown-item" href="press.html">Press</a></li>
+                <li><a class="dropdown-item" href="office.html">Office</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="learn&revise.html">Boards</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="support.html">Support</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="marketing.html">Marketing</a>
+            </li>
+
+            <!-- Right-aligned buttons -->
+            <!-- <li class="nav-item">
+              <a class="nav-link"
+                ><button class="btn btn-info">Subscribe now</button></a
+              >
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="login.html" target="_blank">Login</a>
+            </li>
+            
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- JavaScript to toggle menu -->
+    <script>
+      const toggleButton = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("navbarNav");
+
+      toggleButton.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+      });
+    </script>
+
+    <!-- Session Booking Section -->
+    <div class="background-container">
+      <img src="img/eecback.jpeg" alt="Background" class="full-bg" />
+
+      <div class="form-wrapper">
+        <form id="bookingForm" class="form-card">
+          <h2>Sign up</h2>
+          <!-- <p><strong>Enter Your Details</strong></p> -->
+      
+          <input type="text" name="childName" placeholder="Enter your name" required />
+          <input type="tel" name="mobileNumber" placeholder="Enter your Mobile Number" required />
+          <input type="email" name="email" placeholder="Email Address" />
+      
+          <!-- Class Dropdown -->
+          <select name="class" required>
+            <option value="">Select Class</option>
+            <option value="Class 1">Class 1</option>
+            <option value="Class 2">Class 2</option>
+            <option value="Class 3">Class 3</option>
+          </select>
+      
+          <!-- State Dropdown -->
+          <select name="state" required>
+            <option value="">Select State</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>
+          </select>
+      
+          <!-- Password Field -->
+          <input type="password" name="password" placeholder="Password" required />
+
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" required />
+      
+          <button type="submit">Submit</button>
+                  
+      <p style="text-align: center; margin-top: 10px;">
+        Already have an account?
+        <a href="login.html" style="color: #007bff; text-decoration: none;">Login here</a>
+      </p>
+        
+        </form> 
+
+  
+      </div>
+      
+      <script>
+        document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+try{
+  const response = await fetch("http://localhost:3000/api/book-session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  const result = await response.json();
+  // alert(result.message);
+  if (response.ok) {
+        alert(result.message);
+        e.target.reset(); // clear form after success
+      } else {
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+      alert("Something went wrong!");
+    }
+});
+
+      </script>
+
+      <!-- SVG Curve -->
+      <div class="curve">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <path
+            fill="#ffffff"
+            d="M0,256L48,240C96,224,192,192,288,197.3C384,203,480,245,576,261.3C672,277,768,267,864,234.7C960,203,1056,149,1152,154.7C1248,160,1344,224,1392,256L1440,288V320H0Z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+
+    <section class="eec-section">
+      <div class="eec-container">
+        <h2 class="eec-title">What is EEC?</h2>
+        <p class="eec-description">
+          <strong>Electronic Educare (EEC)</strong> is your one-stop intelligent learning partner for school students from Class 1 to 12.
+          Powered by smart AI and machine learning, it delivers personalized learning experiences, practice modules, and instant academic support to help every student thrive.
+          We’re here to make education smarter, faster, and future-ready.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- <section class="why-eec-section">
+      <div class="why-eec-container">
+        <h2 class="why-eec-title">Why Choose EEC?</h2>
+        <div class="why-eec-cards-container">
+          <div class="why-eec-card">
+            <p class="why-eec-card-text">Adaptive learning, tailored for students</p>
+          </div>
+          <div class="why-eec-card">
+            <p class="why-eec-card-text">Built-in AI to track progress and recommend practice</p>
+          </div>
+          <div class="why-eec-card">
+            <p class="why-eec-card-text">Worksheets, quizzes, and academic tools – all in one app</p>
+          </div>
+          <div class="why-eec-card">
+            <p class="why-eec-card-text">Audio explanations to boost understanding</p>
+          </div>
+          <div class="why-eec-card">
+            <p class="why-eec-card-text">No irrelevant videos – only focused, intelligent content</p>
+          </div>
+          <div class="why-eec-card">
+            <p class="why-eec-card-text">Designed for deep learning, not just surface scoring</p>
+          </div>
+          <div class="why-eec-card">
+            <p class="why-eec-card-text">Parental progress tracking for peace of mind</p>
+          </div>
+          <div class="why-eec-card">
+            <p class="why-eec-card-text">Try the first 5 stages for FREE</p>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    
+
+    <!-- <section class="eec-image-wrapper">
+      <h2 class="eec-image-title">Why Choose EEC?</h2>
+      <img src="img/Why Choose EEC.jpg" alt="EEC Showcase" />
+    </section>
+     -->
+    
+    
+    <section class="eec-features-section">
+      <div class="eec-features-container">
+        <h2 class="eec-features-title">What EEC Offers (Features & Modules)</h2>
+        <div class="eec-features-cards-container">
+          <div class="eec-feature-card">
+            <div class="eec-feature-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <h3 class="eec-feature-title">Structured Learning Modules</h3>
+            <p class="eec-feature-text">Each class has a clear, chapter-wise path. Students move step-by-step through interactive text content and AI-generated practice.</p>
+          </div>
+          <div class="eec-feature-card">
+            <div class="eec-feature-icon">
+              <i class="fas fa-pencil-alt"></i>
+            </div>
+            <h3 class="eec-feature-title">Smart Worksheets & Practice Sets</h3>
+            <p class="eec-feature-text">AI-generated practice papers & MCQs based on student’s actual performance. Each set adapts to their strengths and challenges.</p>
+          </div>
+          <div class="eec-feature-card">
+            <div class="eec-feature-icon">
+              <i class="fas fa-headphones-alt"></i>
+            </div>
+            <h3 class="eec-feature-title">Instant AI-Powered Explanations</h3>
+            <p class="eec-feature-text">Stuck on a question? EEC provides instant text-based and audio explanations to clarify doubts quickly – no need to search elsewhere.</p>
+          </div>
+          <div class="eec-feature-card">
+            <div class="eec-feature-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3 class="eec-feature-title">Progressive Learning from Class 1 to 12</h3>
+            <p class="eec-feature-text">Seamless academic growth from one class to the next. Covers core subjects in a simple format.</p>
+          </div>
+          <div class="eec-feature-card">
+            <div class="eec-feature-icon">
+              <i class="fas fa-level-up-alt"></i>
+            </div>
+            <h3 class="eec-feature-title">Skill-Based Challenges (Easy to Arduous)</h3>
+            <p class="eec-feature-text">Every student faces three levels: Easy, Intermediate, Arduous. Designed to build critical thinking and confidence.</p>
+          </div>
+          <div class="eec-feature-card">
+            <div class="eec-feature-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <h3 class="eec-feature-title">Weekly Leaderboards & Motivation</h3>
+            <p class="eec-feature-text">Fun rankings and shoutouts to keep students motivated.</p>
+          </div>
+          <div class="eec-feature-card">
+            <div class="eec-feature-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3 class="eec-feature-title">Academic Brain Zones</h3>
+            <p class="eec-feature-text">Logical reasoning, memory boosters, picture studies, written records, and mini assessments to expand the brain—not just test marks.</p>
+          </div>
+          <div class="eec-feature-card">
+            <div class="eec-feature-icon">
+              <i class="fas fa-volume-up"></i>
+            </div>
+            <h3 class="eec-feature-title">Audio-Based Concept Clarification</h3>
+            <p class="eec-feature-text">For students who learn better by listening, EEC includes human-style AI audio explanations.</p>
+          </div>
+          <div class="eec-feature-card">
+            <div class="eec-feature-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3 class="eec-feature-title">Parent Dashboard</h3>
+            <p class="eec-feature-text">Parents get a clear, real-time view of the student’s academic activity, quiz scores, weak areas, and learning progress.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Stages of Learning at EEC Section -->
+    <section class="eec-stages-section">
+      <div class="eec-stages-container">
+        <h2 class="eec-stages-title">Stages of Learning at EEC</h2>
+        <p class="eec-stages-subtext">Our app grows with your child. One stage at a time.</p>
+    
+    
+        <div class="eec-stages-vertical">
+          <div class="eec-stage-card">
+            <h3 class="stage-number">Stage 1</h3>
+            <p>Signup + Input/Output understanding</p>
+            <p>Unlock Dashboard <a href="login.html">click here</a></p>
+          </div>
+          <div class="eec-arrow">⬇️</div>
+    
+          <div class="eec-stage-card">
+            <h3 class="stage-number">Stage 2</h3>
+            <p>AI begins tracking performance and learning habits</p>
+          </div>
+          <div class="eec-arrow">⬇️</div>
+    
+          <div class="eec-stage-card">
+            <h3 class="stage-number">Stage 3</h3>
+            <p>Skill tryouts unlocked (Easy → Arduous)</p>
+          </div>
+          <div class="eec-arrow">⬇️</div>
+    
+          <div class="eec-stage-card">
+            <h3 class="stage-number">Stage 4-5</h3>
+            <p>AI feedback loops + confidence building</p>
+          </div>
+          <div class="eec-arrow">⬇️</div>
+    
+          <div class="eec-stage-card">
+            <h3 class="stage-number">Stage 6+</h3>
+            <p>Deep subject intelligence, assessments, reasoning</p>
+          </div>
+        </div>
+    
+        <div class="eec-stages-note">
+          <strong>Note:</strong> Stages 1–5 are absolutely free to try!
+        </div>
+      </div>
+    </section>
+    
+
+<section class="eec-usp-section">
+  <div class="eec-usp-container">
+    <h2 class="eec-usp-title">✨ What Makes <span>EEC</span> Unique</h2>
+    <div class="eec-usp-columns">
+
+      <!-- Column 1: USPs -->
+      <div class="eec-usp-box box-usp">
+        <div class="eec-icon">🎓</div>
+        <h3 class="eec-usp-subtitle">Smart Learning</h3>
+        <ul>
+          <li>AI-based adaptive learning</li>
+          <li>Instant clarifications (audio + written)</li>
+          <li>No video dependency</li>
+          <li>Skill progression logic</li>
+          <li>Intelligence & memory focus</li>
+          <li>Parent-friendly insights</li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Student Benefits -->
+      <div class="eec-usp-box box-student">
+        <div class="eec-icon">🧠</div>
+        <h3 class="eec-usp-subtitle">For Students</h3>
+        <ul>
+          <li>Learn faster with feedback</li>
+          <li>Understand topics with audio help</li>
+          <li>Skill-level challenges (Easy to Arduous)</li>
+          <li>Track self-progress</li>
+          <li>Boost focus, reasoning, accuracy</li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Parent Benefits -->
+      <div class="eec-usp-box box-parents">
+        <div class="eec-icon">👨‍👩‍👧</div>
+        <h3 class="eec-usp-subtitle">For Parents</h3>
+        <ul>
+          <li>Track subject-wise growth</li>
+          <li>Insights into strengths & weak zones</li>
+          <li>Stress-free exam prep</li>
+          <li>Clutter-free, safe platform</li>
+          <li>Start free, upgrade later</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="eec-image-row-section">
+  <h2 class="eec-image-title1">See EEC in Action</h2>
+  <div class="eec-image-row">
+    <div class="eec-image-card">
+      <img src="img/Benefits for Students.jpg" alt="Benefits for Students" />
+    </div>
+    <div class="eec-image-card">
+      <img src="img/Benefits for Parents.jpg" alt="Benefits for Parents" />
+    </div>
+    <div class="eec-image-card">
+      <img src="img/Why Choose EEC.jpg" alt="Why Choose EEC" />
+    </div>
+  </div>
+</section>
+
+
+
+<!-- <section class="eec-carousel-section">
+  <h2 class="carousel-title">See EEC in Action</h2>
+  <div class="carousel-container">
+    <div class="carousel-images" id="carouselImages">
+      <img src="img/Benefits for Students.jpg" alt="EEC Screenshot 1" class="carousel-img">
+      <img src="img/Benefits for Parents.jpg" alt="EEC Screenshot 2" class="carousel-img">
+    </div>
+    <button class="carousel-btn left" onclick="prevSlide()">&#10094;</button>
+    <button class="carousel-btn right" onclick="nextSlide()">&#10095;</button>
+  </div>
+</section> -->
+
+
+
+<!-- <section class="eec-testimonials-section">
+  <div class="eec-testimonials-container">
+    <h2 class="eec-testimonials-title">📣 Student Stories & Testimonials</h2>
+    <div class="eec-testimonials-grid">
+
+      
+      <div class="testimonial-card">
+        <p class="testimonial-quote">“EEC gives me new practice sheets every time. I feel smarter each day!”</p>
+        <div class="testimonial-author">– Samar, Class 8</div>
+      </div>
+
+      
+      <div class="testimonial-card">
+        <p class="testimonial-quote">“The audio explanation helped me understand my math problem better.”</p>
+        <div class="testimonial-author">– Ayushi, Class 6</div>
+      </div>
+
+      
+      <div class="testimonial-card">
+        <p class="testimonial-quote">“I love the tryout challenges – they feel like games!”</p>
+        <div class="testimonial-author">– Ankit, Class 5</div>
+      </div>
+
+    </div>
+  </div>
+</section> -->
+
+
+
+<section class="eec-faq-section">
+  <div class="eec-faq-container">
+    <h2 class="eec-faq-title">❓ FAQ – Frequently Asked Questions</h2>
+    <div class="eec-faq-list">
+
+      <div class="faq-item">
+        <input type="checkbox" id="faq1">
+        <label for="faq1" class="faq-question">Q. Is EEC a video-based app?</label>
+        <div class="faq-answer">No. EEC uses smart text and audio to teach – no long videos.</div>
+      </div>
+
+      <div class="faq-item">
+        <input type="checkbox" id="faq2">
+        <label for="faq2" class="faq-question">Q. Can I use it offline?</label>
+        <div class="faq-answer">Not yet. EEC requires active internet for accurate AI functioning.</div>
+      </div>
+
+      <div class="faq-item">
+        <input type="checkbox" id="faq3">
+        <label for="faq3" class="faq-question">Q. What grades does it support?</label>
+        <div class="faq-answer">From Class 1 to Class 12.</div>
+      </div>
+
+      <div class="faq-item">
+        <input type="checkbox" id="faq4">
+        <label for="faq4" class="faq-question">Q. How much is free?</label>
+        <div class="faq-answer">The first 5 stages are completely free.</div>
+      </div>
+
+      <div class="faq-item">
+        <input type="checkbox" id="faq5">
+        <label for="faq5" class="faq-question">Q. Can parents track progress?</label>
+        <div class="faq-answer">Yes. Every account includes a Parent Dashboard.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="eec-download-section">
+  <div class="eec-download-container">
+    <div class="eec-download-content">
+      <h2>📲 Download the App – Start for Free</h2>
+      <p>Learning just got easier.</p>
+      <p>Download <strong>Electronic Educare (EEC)</strong> from the Play Store now.</p>
+      <p>Unlock your child’s learning journey – <span class="highlight">start with 5 FREE stages!</span></p>
+      <a href="#" class="download-btn" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Download on Play Store">
+    
+      </a>
+    </div>
+    <!-- <div class="eec-download-image">
+      <img class="logo-img" src="img/logo_eec.png" alt="logo" />
+    </div> -->
+  </div>
+</section>
+
+
+
+    <div class="footer-wrapper">
+      <footer>
+        <div class="footer-row">
+          <!-- Quick Links -->
+          <div class="footer-column">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="support.html">Support</a></li>
+              <li><a href="marketing.html">Marketing</a></li>
+              <li><a href="learn&revise.html">Boards</a></li>
+            </ul>
+          </div>
+
+          <!-- EEC Links -->
+          <div class="footer-column">
+            <h5>EEC</h5>
+            <ul>
+              <li><a href="analytic.html">Unlock precise analytics</a></li>
+              <li><a href="ai.html">AI Engine guides</a></li>
+              <li><a href="product_adv.html">Product Advantages</a></li>
+              <li><a href="tollered.html">Tailored Content</a></li>
+              <li><a href="e-learn-well.html">Enhance learning</a></li>
+              <li><a href="aim.html">Best Solutions</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact Us -->
+          <div class="footer-column">
+            <h5>Contact Us</h5>
+            <ul>
+              <li><a href="career2.html">Career</a></li>
+              <li><a href="press.html">Press</a></li>
+              <li><a href="office.html">Office</a></li>
+            </ul>
+          </div>
+
+          <!-- Follow Us -->
+          <div class="footer-column">
+            <h5>Follow Us</h5>
+            <div class="footer-icons">
+              <a href="#"
+                ><img src="img/facebook-white-icon.png" alt="Facebook"
+              /></a>
+              <!-- <a href="#"><img src="img/twitter-icon.png" alt="Twitter"></a> -->
+              <a href="#"
+                ><img src="img/linkedin-white-icon.png" alt="LinkedIn"
+              /></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2025 EEC Learning. All Rights Reserved.</p>
+        </div>
+      </footer>
+
+
+
+    </div>
+
+
+     <!-- JavaScript -->
+     <!-- <script>
+      function closePopup() {
+        document.getElementById("popupForm").style.display = "none";
+      }
+
+      // Automatically show popup on page load
+      window.onload = function () {
+        document.getElementById("popupForm").style.display = "flex";
+      };
+    </script> -->
+
+
+<script>
+  let currentSlide = 0;
+
+  function showSlide(index) {
+    const carousel = document.getElementById('carouselImages');
+    const totalSlides = carousel.children.length;
+    currentSlide = (index + totalSlides) % totalSlides;
+    carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+
+  function prevSlide() {
+    showSlide(currentSlide - 1);
+  }
+
+  // Optional: auto slide every 5 seconds
+  setInterval(nextSlide, 5000);
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,850 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luxury Quiz Popup</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
+
+    body {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      padding: 0;
+      background: url('img/bg.jpg');
+      background-color:rgb(247, 218, 5);
+      color: #f4f4f4;
+    }
+
+    #quizModal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      z-index: 1000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('img/bg.jpg') no-repeat center center fixed;
+       background-size: cover;
+      background-color: #ede6e6;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .quiz-content {
+      background: linear-gradient(135deg, #2ec2dd);
+      padding: 40px;
+      width: 60%;
+      border-radius: 12px;
+      /* box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); */
+      transform: scale(0.8);
+      animation: zoomIn 0.4s ease-out forwards;
+      color: #f4f4f4;
+    }
+
+    .question {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color:#444 ;
+    }
+  
+
+    .quiz-footer {
+      margin-top: 30px;
+      text-align: right;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      margin: 6px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #ffd700;
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background-color: #e6c200;
+    }
+
+    .btn-secondary {
+      background-color: #444;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #555;
+    }
+
+    .btn:disabled {
+      background-color: #333;
+      cursor: not-allowed;
+    }
+
+    #quizOptions label {
+      display: block;
+      background-color:  #d8c975;
+      padding: 12px 18px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    #quizOptions label:hover {
+      background-color: #2a2a2a;
+      border-color: #ffd700;
+    }
+
+    #quizOptions input[type="radio"] {
+      display: none;
+    }
+
+    #quizOptions input[type="radio"]:checked + label {
+      background-color: #333;
+      border-color: #ffd700;
+      color: #ffd700;
+    }
+
+    @keyframes zoomIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #progress {
+      font-size: 16px;
+      color: #aaa;
+      float: left;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="quizModal">
+    <div class="quiz-content">
+      <div id="quizQuestion" class="question"></div>
+      <div id="quizOptions"></div>
+      <div class="quiz-footer">
+        <span id="progress"></span>
+        <button class="btn btn-secondary" onclick="prevQuestion()">Previous</button>
+        <button class="btn btn-primary" onclick="nextQuestion()">Next</button>
+    
+      </div>
+    </div>
+  </div>
+
+ <script>
+  let quizData = [];
+  let currentQuestion = 0;
+
+  document.addEventListener("DOMContentLoaded", async function () {
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email");
+
+    if (!email) {
+      alert("Invalid access. Email is missing.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    try {
+   
+      const profileResponse = await fetch(`http://localhost:3000/api/profile/view/${email}`);
+      if (!profileResponse.ok) throw new Error("Profile fetch failed");
+
+      const user = await profileResponse.json();
+      const userClass = (user.class || "").toLowerCase().replace(/\s+/g, "");
+
+      if (!userClass) {
+        alert("User class not found.");
+        return;
+      }
+
+      
+      const quizResponse = await fetch(`http://localhost:3000/api/quiz/${userClass}`);
+      const questions = await quizResponse.json();
+
+      if (quizResponse.ok && questions.length > 0) {
+        quizData = questions;
+        showQuestion();
+      } else {
+        alert("No questions available for this class.");
+      }
+    } catch (error) {
+      console.error("Error loading quiz:", error);
+      alert("Failed to load quiz. Please try again later.");
+    }
+  });
+
+  function showQuestion() {
+    const q = quizData[currentQuestion];
+    document.getElementById("quizQuestion").textContent = q.question;
+    const optionsHtml = q.options.map((opt, i) =>
+      `<div>
+        <input type="radio" name="option" id="opt${i}">
+        <label for="opt${i}">${opt}</label>
+      </div>`).join('');
+    document.getElementById("quizOptions").innerHTML = optionsHtml;
+    document.getElementById("progress").textContent = `Question ${currentQuestion + 1} of ${quizData.length}`;
+
+    document.querySelector('.btn-secondary').disabled = currentQuestion === 0;
+    document.querySelector('.btn-primary').disabled = currentQuestion === quizData.length - 1;
+  }
+
+  function nextQuestion() {
+    if (currentQuestion < quizData.length - 1) {
+      currentQuestion++;
+      showQuestion();
+    }
+  }
+
+  function prevQuestion() {
+    if (currentQuestion > 0) {
+      currentQuestion--;
+      showQuestion();
+    }
+  }
+</script>
+
+
+
+
+
+</body>
+</html> -->
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luxury Quiz Popup</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
+
+    body {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      padding: 0;
+      background-color: rgb(247, 218, 5);
+    }
+
+    #quizModal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      z-index: 1000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('img/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .quiz-content {
+      background: linear-gradient(135deg, #2ec2dd);
+      padding: 40px;
+      width: 60%;
+      border-radius: 12px;
+      transform: scale(0.8);
+      animation: zoomIn 0.4s ease-out forwards;
+      color: #f4f4f4;
+    }
+
+    .question {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .quiz-footer {
+      margin-top: 30px;
+      text-align: right;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      margin: 6px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #ffd700;
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background-color: #e6c200;
+    }
+
+    .btn-secondary {
+      background-color: #444;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #555;
+    }
+
+    .btn:disabled {
+      background-color: #333;
+      cursor: not-allowed;
+    }
+
+    #quizOptions label {
+      display: block;
+      background-color: #d8c975;
+      padding: 12px 18px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    #quizOptions label:hover {
+      background-color: #2a2a2a;
+      border-color: #ffd700;
+    }
+
+    #quizOptions input[type="radio"] {
+      display: none;
+    }
+
+    #quizOptions input[type="radio"]:checked + label {
+      background-color: #333;
+      border-color: #ffd700;
+      color: #ffd700;
+    }
+
+    @keyframes zoomIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #progress {
+      font-size: 16px;
+      color: #aaa;
+      float: left;
+      margin-top: 12px;
+    }
+
+    #timerBox {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #ffd700;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 1001;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="quizModal">
+    <div class="quiz-content">
+      <div id="quizQuestion" class="question"></div>
+      <div id="quizOptions"></div>
+      <div class="quiz-footer">
+        <span id="progress"></span>
+        <button class="btn btn-secondary" onclick="prevQuestion()">Previous</button>
+        <button class="btn btn-primary" onclick="nextQuestion()">Next</button>
+        <button class="btn btn-primary" onclick="submitQuiz()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="timerBox">Time Left: <span id="timer">05:00</span></div>
+
+<script>
+  let quizData = [];
+  let userAnswers = [];
+  let currentQuestion = 0;
+  let userEmail = "";
+  let userClass = "";
+
+  let timerInterval;
+  let totalSeconds = 10; // 5 minutes
+
+  function startTimer() {
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+      totalSeconds--;
+      updateTimerDisplay();
+
+      if (totalSeconds <= 0) {
+        clearInterval(timerInterval);
+        alert("Time is up! Submitting your quiz.");
+        submitQuiz();
+      }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+    document.getElementById("timer").textContent = `${minutes}:${seconds}`;
+  }
+
+  document.addEventListener("DOMContentLoaded", async function () {
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email");
+    userEmail = email;
+
+    if (!email) {
+      alert("Invalid access. Email is missing.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    try {
+      const profileResponse = await fetch(`http://localhost:3000/api/profile/view/${email}`);
+      if (!profileResponse.ok) throw new Error("Profile fetch failed");
+
+      const user = await profileResponse.json();
+      userClass = (user.class || "").toLowerCase().replace(/\s+/g, "");
+
+      if (!userClass) {
+        alert("User class not found.");
+        return;
+      }
+
+      const quizResponse = await fetch(`http://localhost:3000/api/quiz/${userClass}`);
+      const questions = await quizResponse.json();
+
+      if (quizResponse.ok && questions.length > 0) {
+        quizData = questions;
+        userAnswers = Array(quizData.length).fill(null);
+        showQuestion();
+        startTimer();
+      } else {
+        alert("No questions available for this class.");
+      }
+    } catch (error) {
+      console.error("Error loading quiz:", error);
+      alert("Failed to load quiz. Please try again later.");
+    }
+  });
+
+  function showQuestion() {
+    const q = quizData[currentQuestion];
+    document.getElementById("quizQuestion").textContent = q.question;
+
+    const selected = userAnswers[currentQuestion];
+    const optionsHtml = q.options.map((opt, i) => {
+      const checked = selected === opt ? "checked" : "";
+      return `
+        <div>
+          <input type="radio" name="option" id="opt${i}" value="${opt}" ${checked}>
+          <label for="opt${i}">${opt}</label>
+        </div>`;
+    }).join('');
+
+    document.getElementById("quizOptions").innerHTML = optionsHtml;
+    document.getElementById("progress").textContent = `Question ${currentQuestion + 1} of ${quizData.length}`;
+
+    document.querySelector('.btn-secondary').disabled = currentQuestion === 0;
+  }
+
+  function saveAnswer() {
+    const selected = document.querySelector('input[name="option"]:checked');
+    userAnswers[currentQuestion] = selected ? selected.value : null;
+  }
+
+  function nextQuestion() {
+    saveAnswer();
+    if (currentQuestion < quizData.length - 1) {
+      currentQuestion++;
+      showQuestion();
+    } else {
+      submitQuiz();
+    }
+  }
+
+  function prevQuestion() {
+    saveAnswer();
+    if (currentQuestion > 0) {
+      currentQuestion--;
+      showQuestion();
+    }
+  }
+
+  async function submitQuiz() {
+    saveAnswer();
+    clearInterval(timerInterval); // Stop timer
+
+    const allAnswered = userAnswers.every(ans => ans !== null && ans !== undefined);
+    if (!allAnswered && !confirm("You have unanswered questions. Submit anyway?")) {
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: userEmail,
+          class: userClass,
+          answers: userAnswers
+        }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert(`Quiz submitted successfully!\nCorrect answers: ${result.correctAnswers}/${result.totalQuestions}`);
+        // window.location.href = "thankyou.html";
+      } else {
+        alert("Submission failed: " + result.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error submitting quiz.");
+    }
+  }
+</script>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luxury Quiz Popup</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
+
+    body {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      padding: 0;
+      background-color: rgb(247, 218, 5);
+    }
+
+    #quizModal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      z-index: 1000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('img/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .quiz-content {
+      background: linear-gradient(135deg, #2ec2dd);
+      padding: 40px;
+      width: 60%;
+      border-radius: 12px;
+      transform: scale(0.8);
+      animation: zoomIn 0.4s ease-out forwards;
+      color: #f4f4f4;
+    }
+
+    .question {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .quiz-footer {
+      margin-top: 30px;
+      text-align: right;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      margin: 6px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #ffd700;
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background-color: #e6c200;
+    }
+
+    .btn-secondary {
+      background-color: #444;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #555;
+    }
+
+    .btn:disabled {
+      background-color: #333;
+      cursor: not-allowed;
+    }
+
+    #quizOptions label {
+      display: block;
+      background-color: #d8c975;
+      padding: 12px 18px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    #quizOptions label:hover {
+      background-color: #2a2a2a;
+      border-color: #ffd700;
+    }
+
+    #quizOptions input[type="radio"] {
+      display: none;
+    }
+
+    #quizOptions input[type="radio"]:checked + label {
+      background-color: #333;
+      border-color: #ffd700;
+      color: #ffd700;
+    }
+
+    @keyframes zoomIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #progress {
+      font-size: 16px;
+      color: #aaa;
+      float: left;
+      margin-top: 12px;
+    }
+
+    #timerBox {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #ffd700;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 1001;
+    }
+
+    #answerStatus {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #00ffcc;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      z-index: 1001;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="quizModal">
+    <div class="quiz-content">
+      <div id="quizQuestion" class="question"></div>
+      <div id="quizOptions"></div>
+      <div class="quiz-footer">
+        <span id="progress"></span>
+        <button class="btn btn-secondary" onclick="prevQuestion()">Previous</button>
+        <button class="btn btn-primary" onclick="nextQuestion()">Next</button>
+        <button class="btn btn-primary" onclick="submitQuiz()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="timerBox">Time Left: <span id="timer">05:00</span></div>
+  <div id="answerStatus">Answered: 0</div>
+
+<script>
+  let quizData = [];
+  let userAnswers = [];
+  let currentQuestion = 0;
+  let userEmail = "";
+  let userClass = "";
+
+  let timerInterval;
+  let totalSeconds = 300; // 5 minutes
+
+  function startTimer() {
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+      totalSeconds--;
+      updateTimerDisplay();
+
+      if (totalSeconds <= 0) {
+        clearInterval(timerInterval);
+        alert("Time is up! Submitting your quiz.");
+        submitQuiz();
+      }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+    document.getElementById("timer").textContent = `${minutes}:${seconds}`;
+  }
+
+  function updateAnswerStatus() {
+    const answeredCount = userAnswers.filter(ans => ans !== null && ans !== undefined).length;
+    document.getElementById("answerStatus").textContent = `Answered: ${answeredCount}/${quizData.length}`;
+  }
+
+  document.addEventListener("DOMContentLoaded", async function () {
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email");
+    userEmail = email;
+
+    if (!email) {
+      alert("Invalid access. Email is missing.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    try {
+      const profileResponse = await fetch(`http://localhost:3000/api/profile/view/${email}`);
+      if (!profileResponse.ok) throw new Error("Profile fetch failed");
+
+      const user = await profileResponse.json();
+      userClass = (user.class || "").toLowerCase().replace(/\s+/g, "");
+
+      if (!userClass) {
+        alert("User class not found.");
+        return;
+      }
+
+      const quizResponse = await fetch(`http://localhost:3000/api/quiz/${userClass}`);
+      const questions = await quizResponse.json();
+
+      if (quizResponse.ok && questions.length > 0) {
+        quizData = questions;
+        userAnswers = Array(quizData.length).fill(null);
+        showQuestion();
+        updateAnswerStatus();
+        startTimer();
+      } else {
+        alert("No questions available for this class.");
+      }
+    } catch (error) {
+      console.error("Error loading quiz:", error);
+      alert("Failed to load quiz. Please try again later.");
+    }
+  });
+
+  function showQuestion() {
+    const q = quizData[currentQuestion];
+    document.getElementById("quizQuestion").textContent = q.question;
+
+    const selected = userAnswers[currentQuestion];
+    const optionsHtml = q.options.map((opt, i) => {
+      const checked = selected === opt ? "checked" : "";
+      return `
+        <div>
+          <input type="radio" name="option" id="opt${i}" value="${opt}" ${checked}>
+          <label for="opt${i}">${opt}</label>
+        </div>`;
+    }).join('');
+
+    document.getElementById("quizOptions").innerHTML = optionsHtml;
+    document.getElementById("progress").textContent = `Question ${currentQuestion + 1} of ${quizData.length}`;
+    document.querySelector('.btn-secondary').disabled = currentQuestion === 0;
+  }
+
+  function saveAnswer() {
+    const selected = document.querySelector('input[name="option"]:checked');
+    userAnswers[currentQuestion] = selected ? selected.value : null;
+    updateAnswerStatus();
+  }
+
+  function nextQuestion() {
+    saveAnswer();
+    if (currentQuestion < quizData.length - 1) {
+      currentQuestion++;
+      showQuestion();
+    } else {
+      submitQuiz();
+    }
+  }
+
+  function prevQuestion() {
+    saveAnswer();
+    if (currentQuestion > 0) {
+      currentQuestion--;
+      showQuestion();
+    }
+  }
+
+  async function submitQuiz() {
+    saveAnswer();
+    clearInterval(timerInterval);
+
+    const allAnswered = userAnswers.every(ans => ans !== null && ans !== undefined);
+    if (!allAnswered && !confirm("You have unanswered questions. Submit anyway?")) {
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: userEmail,
+          class: userClass,
+          answers: userAnswers
+        }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert(`Quiz submitted successfully!\nCorrect answers: ${result.correctAnswers}/${result.totalQuestions}`);
+        window.location.href = "thankyou.html";
+      } else {
+        alert("Submission failed: " + result.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error submitting quiz.");
+    }
+  }
+</script>
+
+</body>
+</html>

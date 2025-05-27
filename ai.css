@@ -1,0 +1,181 @@
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Lato", "Roboto", sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    background: url("img/Discover\ the\ Power\ of\ EEC’s\ AI\ Engine.jpg") center/cover no-repeat;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .hero-content {
+    /* background: rgba(0, 0, 0, 0.5); */
+    padding: 30px;
+    border-radius: 10px;
+  }
+  
+  .hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .hero-section p {
+    font-size: 1.2rem;
+  }
+  
+  /* Info Sections */
+  .info-section {
+    padding: 60px 20px;
+  }
+  
+  .light-bg {
+    background-color: #f7f7f7;
+  }
+  
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .column {
+    flex: 1;
+    min-width: 280px;
+  }
+  
+  .info-image {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Center Text */
+  .center-text {
+    text-align: center;
+  }
+  
+  /* Benefit Cards */
+  .benefit-card {
+    flex: 1;
+    min-width: 250px;
+    padding: 20px;
+  }
+  
+  .icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #007bff;
+  }
+  
+  /* Responsive Order */
+  .order-desktop-last {
+    order: 2;
+  }
+  
+  @media (max-width: 768px) {
+    .row {
+      flex-direction: column;
+    }
+    .order-desktop-last {
+      order: 0;
+    }
+    .hero-section h1 {
+      font-size: 2rem;
+    }
+  }
+  
+  .footer-wrapper {
+    background-color: #0975a3;
+    padding-top: 20px;
+  }
+  
+  footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0 15px;
+  }
+  
+  .footer-column {
+    flex: 1 1 200px;
+    min-width: 200px;
+  }
+  
+  .footer-column h5 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-column ul li a {
+    color: #fbbe06;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer-column ul li a:hover {
+    color: #007bff;
+  }
+  
+  .footer-icons a {
+    margin-right: 10px;
+    display: inline-block;
+  }
+  
+  .footer-icons img {
+    width: 24px;
+    height: auto;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px 0;
+    border-top: 1px solid #ccc;
+    color: #fbbe06;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-row {
+      flex-direction: column;
+    }
+  }
+  
