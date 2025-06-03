@@ -615,7 +615,8 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #f3f3e5;
+  background: url('img/profileview.jpg') no-repeat center center fixed;
+  background-size: cover;
     }
 
     .main-menu {
@@ -740,7 +741,16 @@
 
     .tryout-button a:hover {
       background-color: darkorange;
-    }
+    
+       }
+       .profile-reward {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: yellow;
+  padding-left: 20px;
+  font-size: 40px;
+}
+
   </style>
 </head>
 <body>
@@ -749,12 +759,15 @@
   <div class="menu-items">
     <a class="navbar-brand" href="index.html">
       <img class="logo-img" src="img/logo_eec.png" alt="logo" height="50" />
+
     </a>
     <a class="comon-btn" href="index.html">🏠 Home</a>
+     <div class="profile-reward" id="navRewardPoints">Reward Points: 0</div>
     <div class="profile-info">
       <div class="profile-text">
         <div class="profile-name" id="navName">Your Name</div>
         <div class="profile-address" id="navAddress">Your Address</div>
+       
       </div>
       <img src="img/pro-view-img.png" alt="Profile Image" class="profile-img" id="navProfileImage" />
     </div>
@@ -790,7 +803,7 @@
   </div>
 </div>
 
-<script>
+<!-- <script>
   document.addEventListener("DOMContentLoaded", async function () {
     const params = new URLSearchParams(window.location.search);
     const email = params.get("email");
@@ -802,7 +815,7 @@
     }
 
     try {
-      const response = await fetch(`https://eecb2crevamped.onrender.com/api/profile/view/${encodeURIComponent(email)}`);
+      const response = await fetch(`http://localhost:3000/api/profile/view/${encodeURIComponent(email)}`);
       const userData = await response.json();
 
       if (response.ok) {
@@ -819,6 +832,7 @@
 
         document.getElementById("navName").textContent = userData.fullName || "Your Name";
         document.getElementById("navAddress").textContent = userData.homeAddress || "Your Address";
+        document.getElementById("navRewardPoints").textContent = `Reward Points: ${userData.rewardPoints ?? 0}`;
 
         // ✅ Set the image URLs if available
         const profileImageURL = userData.profileImage || "img/pro-view-img.png";
@@ -836,7 +850,55 @@
       alert("Failed to load profile. Please try again later.");
     }
   });
+</script> -->
+<script>
+  document.addEventListener("DOMContentLoaded", async function () {
+    const params = new URLSearchParams(window.location.search);
+    const identifier = params.get("identifier");
+
+    if (!identifier) {
+      alert("Invalid access. Identifier is missing.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/profile/view/${encodeURIComponent(identifier)}`);
+      const userData = await response.json();
+
+      if (response.ok) {
+        document.getElementById("fullName").textContent = userData.fullName || "-";
+        document.getElementById("dob").textContent = userData.dob || "-";
+        document.getElementById("schoolName").textContent = userData.schoolName || "-";
+        // document.getElementById("classGrade").textContent = userData.classGrade || "-";
+        document.getElementById("rollNumber").textContent = userData.rollNumber || "-";
+        document.getElementById("parentContact").textContent = userData.parentContact || "-";
+        document.getElementById("homeAddress").textContent = userData.homeAddress || "-";
+        document.getElementById("subjects").textContent = userData.subjects || "-";
+        document.getElementById("learningPreferences").textContent = userData.learningPreferences || "-";
+        document.getElementById("goals").textContent = userData.goals || "-";
+
+        document.getElementById("navName").textContent = userData.fullName || "Your Name";
+        document.getElementById("navAddress").textContent = userData.homeAddress || "Your Address";
+        document.getElementById("navRewardPoints").textContent = `Reward Points: ${userData.rewardPoints ?? 0}`;
+
+        const profileImageURL = userData.profileImage || "img/pro-view-img.png";
+        document.getElementById("profileImagePreview").src = profileImageURL;
+        document.getElementById("navProfileImage").src = profileImageURL;
+
+        const tryoutLink = `feedback.html?identifier=${encodeURIComponent(identifier)}`;
+        document.getElementById("tryoutBtn").setAttribute("href", tryoutLink);
+      } else {
+        alert("User not found.");
+        window.location.href = "login.html";
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      alert("Failed to load profile. Please try again later.");
+    }
+  });
 </script>
+
 
 </body>
 </html>

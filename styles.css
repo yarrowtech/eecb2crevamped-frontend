@@ -96,7 +96,8 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 50px 0 0 800px;
+    padding: 10px 0 0 200px;
+    padding-bottom: 10px;
     height: 100%;
     z-index: 1;
     position: relative;
@@ -109,7 +110,8 @@
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
     max-width: 400px;
-    width: 90%;
+    width: 75%;
+    height: 82%;
   }
   .form-card select {
     width: 100%;
@@ -450,21 +452,66 @@
 }
 
 /* Cards Container */
-.eec-features-cards-container {
+/* .eec-features-cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
+} */
+/* .eec-features-cards-container {
+  display: flex;
+  flex-direction: row-reverse; 
+  overflow-x: auto;
+  gap: 2rem;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
 }
+.eec-features-cards-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.eec-features-cards-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+} */
+
+.eec-features-cards-container {
+  display: flex;
+  flex-direction: row-reverse; /* Right to left */
+  gap: 2rem;
+  animation: scrollLeft 70s linear infinite; /* Smooth continuous scroll */
+  width: max-content; /* Allow container to expand as wide as needed */
+
+}
+
+.eec-features-scroll-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 
 /* Card Styling */
 .eec-feature-card {
   background: #ffffff;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  padding:  1rem 1.2rem;;
   transition: all 0.3s ease-in-out;
   text-align: left;
 }
+.eec-feature-card {
+  min-width: 250px;
+  flex-shrink: 0;
+}
+
 
 /* Card Icon Styling */
 .eec-feature-icon {
