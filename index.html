@@ -101,7 +101,7 @@
               <a class="nav-link dropdown-toggle" href="#">Contact Us</a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="career2.html">Career</a></li>
-                <li><a class="dropdown-item" href="press.html">Press</a></li>
+                <!-- <li><a class="dropdown-item" href="press.html">Press</a></li> -->
                 <li><a class="dropdown-item" href="office.html">Office</a></li>
               </ul>
             </li>
@@ -160,9 +160,18 @@
           <!-- Class Dropdown -->
           <select name="class" required>
             <option value="">Select Class</option>
-            <option value="Class 1">Class 1</option>
-            <option value="Class 2">Class 2</option>
-            <option value="Class 3">Class 3</option>
+            <option value="Class 5">Class 1</option>
+            <option value="Class 5">Class 2</option>
+            <option value="Class 5">Class 3</option>
+            <option value="Class 5">Class 4 </option>
+            <option value="Class 5">Class 5</option>
+            <option value="Class 6">Class 6</option>
+            <option value="Class 7">Class 7</option>
+            <option value="Class 8">Class 8</option>
+            <option value="Class 9">Class 9</option>
+            <option value="Class 10">Class 10</option>
+            <option value="Class 11">Class 11</option>
+            <option value="Class 12">Class 12</option>
           </select>
       
           <!-- State Dropdown -->
@@ -207,7 +216,7 @@
       
           <button type="submit">Submit</button>
                   
-      <p style="text-align: center; margin-top: 10px;">
+      <p style="text-align: center; margin-top: 2px;">
         Already have an account?
         <a href="login.html" style="color: #007bff; text-decoration: none;">Login here</a>
       </p>
@@ -216,7 +225,7 @@
 
   
       </div>
-      
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
       <script>
 //         document.getElementById("bookingForm").addEventListener("submit", async (e) => {
 //   e.preventDefault();
@@ -260,18 +269,34 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
     const result = await response.json();
 
     if (response.ok) {
-      alert(`${result.message}\nYour referral code is: ${result.referralCode}`);
-      e.target.reset(); // clear form after success
-    } else {
-      alert(`Error: ${result.message}`);
-    }
-  } catch (error) {
-    console.error("Request failed:", error);
-    alert("Something went wrong!");
-  }
-});
+//       alert(`${result.message}\nYour referral code is: ${result.referralCode}`);
+//       e.target.reset(); // clear form after success
+//     } else {
+//       alert(`Error: ${result.message}`);
+//     }
+//   } catch (error) {
+//     console.error("Request failed:", error);
+//     alert("Something went wrong!");
+//   }
+// });
+confetti({
+            particleCount: 150,
+            spread: 100,
+            origin: { y: 0.6 }
+          });
 
-
+          setTimeout(() => {
+            alert(`${result.message}\nYour referral code is: ${result.referralCode}`);
+            e.target.reset(); // clear form after success
+          }, 1000); // 1 sec delay for confetti to show
+        } else {
+          alert(`Error: ${result.message}`);
+        }
+      } catch (error) {
+        console.error("Request failed:", error);
+        alert("Something went wrong!");
+      }
+    });
       </script>
 
       <!-- SVG Curve -->
@@ -411,7 +436,7 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
     </section>
     
     <!-- Stages of Learning at EEC Section -->
-    <section class="eec-stages-section">
+    <!-- <section class="eec-stages-section">
       <div class="eec-stages-container">
         <h2 class="eec-stages-title">Stages of Learning at EEC</h2>
         <p class="eec-stages-subtext">Our app grows with your child. One stage at a time.</p>
@@ -453,8 +478,47 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
           <strong>Note:</strong> Stages 1–5 are absolutely free to try!
         </div>
       </div>
-    </section>
+    </section> -->
     
+    <section class="eec-stages-section">
+  <div class="eec-stages-container">
+    <h2 class="eec-stages-title">Stages of Learning at EEC</h2>
+    <p class="eec-stages-subtext">Our app grows with your child. One stage at a time.</p>
+
+    <div class="eec-stages-horizontal">
+      <div class="eec-stage-card">
+        <h3 class="stage-number">Stage 1</h3>
+        <p>Signup + Input/Output understanding</p>
+        <p>Unlock Dashboard <a href="login.html">click here</a></p>
+      </div>
+
+      <div class="eec-stage-card">
+        <h3 class="stage-number">Stage 2</h3>
+        <p>AI begins tracking performance and learning habits</p>
+      </div>
+
+      <div class="eec-stage-card">
+        <h3 class="stage-number">Stage 3</h3>
+        <p>Skill tryouts unlocked (Easy → Arduous)</p>
+      </div>
+
+      <div class="eec-stage-card">
+        <h3 class="stage-number">Stage 4-5</h3>
+        <p>AI feedback loops + confidence building</p>
+      </div>
+
+      <div class="eec-stage-card">
+        <h3 class="stage-number">Stage 6+</h3>
+        <p>Deep subject intelligence, assessments, reasoning</p>
+      </div>
+    </div>
+
+    <div class="eec-stages-note">
+      <strong>Note:</strong> Stages 1–5 are absolutely free to try!
+    </div>
+  </div>
+</section>
+
 
 <section class="eec-usp-section">
   <div class="eec-usp-container">
@@ -659,7 +723,7 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
             <h5>Contact Us</h5>
             <ul>
               <li><a href="career2.html">Career</a></li>
-              <li><a href="press.html">Press</a></li>
+              <!-- <li><a href="press.html">Press</a></li> -->
               <li><a href="office.html">Office</a></li>
             </ul>
           </div>

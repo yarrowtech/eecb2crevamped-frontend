@@ -872,17 +872,19 @@
 
   document.addEventListener("DOMContentLoaded", async function () {
     const params = new URLSearchParams(window.location.search);
-    const email = params.get("email");
-    userEmail = email;
+    // const email = params.get("email");
+    // userEmail = email;
+     const identifier = params.get("identifier");
+  userEmail = identifier;
 
-    if (!email) {
+    if (!identifier) {
       alert("Invalid access. Email is missing.");
       window.location.href = "login.html";
       return;
     }
 
     try {
-      const profileResponse = await fetch(`http://localhost:3000/api/profile/view/${email}`);
+      const profileResponse = await fetch(`http://localhost:3000/api/profile/view/${identifier}`);
       if (!profileResponse.ok) throw new Error("Profile fetch failed");
 
       const user = await profileResponse.json();
@@ -968,7 +970,8 @@
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: userEmail,
+          // email: userEmail,
+          identifier: userEmail,
           class: userClass,
           answers: userAnswers
         }),

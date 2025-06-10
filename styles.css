@@ -97,12 +97,12 @@
     justify-content: flex-start;
     align-items: flex-start;
     padding: 10px 0 0 200px;
-    padding-bottom: 10px;
-    height: 100%;
+    padding-bottom: 8px;
+    height: 97%;
     z-index: 1;
     position: relative;
   }
-  
+
   /* Form card */
   .form-card {
     background: rgba(255, 255, 255, 0.95);
@@ -126,7 +126,7 @@
   .form-card h2,
   .form-card p {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
   }
   
   .form-card input {
@@ -500,7 +500,7 @@
 
 /* Card Styling */
 .eec-feature-card {
-  background: #ffffff;
+  background: linear-gradient(135deg, #fff9c4, #ffe082);
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding:  1rem 1.2rem;;
@@ -510,6 +510,10 @@
 .eec-feature-card {
   min-width: 250px;
   flex-shrink: 0;
+}
+.eec-feature-card {
+  min-width: 200px;
+  max-width: 220px;
 }
 
 
@@ -540,7 +544,7 @@
 .eec-feature-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  background: #f9f9f9;
+  background: linear-gradient(135deg, #fff59d, #ffeb3b);
 }
 
 /* Responsive Design */
@@ -555,8 +559,8 @@
 }
 
   
-.eec-stages-section {
-  background-color: #f0f4f8;
+/* .eec-stages-section {
+  background-color: #e7e6d2;
   padding: 4rem 1.5rem;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -587,7 +591,7 @@
 }
 
 .eec-stage-card {
-  background-color: #ffffff;
+  background-color: #febe06;
   padding: 1.5rem;
   width: 100%;
   border-radius: 1rem;
@@ -638,12 +642,104 @@
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
   font-weight: 500;
+} */
+
+.eec-stages-section {
+  background-color: #e7e6d2;
+  padding: 4rem 1.5rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.eec-stages-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.eec-stages-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #FEBE06;
+  margin-bottom: 0.5rem;
+}
+
+.eec-stages-subtext {
+  font-size: 1.125rem;
+  color: #606a78;
+  margin-bottom: 2rem;
+}
+
+/* Updated: Horizontal scroll layout */
+.eec-stages-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
+}
+
+/* Optional: nicer scrollbar for webkit browsers */
+.eec-stages-horizontal::-webkit-scrollbar {
+  height: 8px;
+}
+.eec-stages-horizontal::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 4px;
+}
+.eec-stages-horizontal::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.eec-stage-card {
+  background-color: #febe06;
+  padding: 1.5rem;
+  min-width: 220px;
+  max-width: 260px;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  text-align: left;
+}
+
+.eec-stage-card:hover {
+  transform: translateY(-5px);
+}
+
+.stage-number {
+  font-size: 1.5rem;
+  color: #2563eb;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.eec-stage-card p {
+  font-size: 1rem;
+  color: #374151;
+  margin: 0.5rem 0;
+}
+
+.eec-arrow {
+  display: none; /* Arrows are hidden in horizontal layout */
+}
+
+.eec-stages-note {
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: #1f2937;
+  background: #e0f2fe;
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 500;
 }
 
 
 
+
 .eec-usp-section {
-  background: linear-gradient(to right, #fdfbfb, #ebedee);
+  background: #f4f0d2;
   padding: 4rem 1rem;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -674,7 +770,7 @@
 }
 
 .eec-usp-box {
-  background: #fff;
+  background: #fbbe063b;
   border-radius: 1.5rem;
   padding: 2rem;
   flex: 1;
@@ -805,6 +901,7 @@
 .eec-image-row-section {
   padding: 3rem 5rem;
   text-align: center;
+  background-color: #004aad;
 }
 
 .eec-image-title1 {
@@ -905,7 +1002,7 @@
 
 
 .eec-faq-section {
-  background-color: #f9fafb;
+  background-color: #e4e2d9;
   padding: 4rem 1.5rem;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -931,7 +1028,7 @@
 }
 
 .faq-item {
-  background-color: #fff;
+  background-color: #febe06;
   border-radius: 1rem;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
   overflow: hidden;

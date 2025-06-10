@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>From and Date Input UI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('img/date.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px 30px;
+      margin-left: 700px;
+      margin-bottom: 100px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      width: 300px;
+    }
+
+    .card h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color:black;
+    }
+
+    input:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .output {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .output span {
+      display: block;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Input Panel</h2>
+    <label for="fromInput">From:</label>
+    <input type="text" id="fromInput" placeholder="Enter sender">
+
+    <label for="dateInput">Date:</label>
+    <input type="date" id="dateInput">
+
+    <div class="output">
+      <!-- <strong>Override Result:</strong> -->
+      <span id="fromDisplay">From: —</span>
+      <span id="dateDisplay">Date: —</span>
+    </div>
+  </div>
+
+  <script>
+    const fromInput = document.getElementById('fromInput');
+    const dateInput = document.getElementById('dateInput');
+    const fromDisplay = document.getElementById('fromDisplay');
+    const dateDisplay = document.getElementById('dateDisplay');
+
+    fromInput.addEventListener('input', () => {
+      fromDisplay.textContent = 'From: ' + fromInput.value;
+    });
+
+    dateInput.addEventListener('input', () => {
+      dateDisplay.textContent = 'Date: ' + dateInput.value;
+    });
+  </script>
+
+</body>
+</html>

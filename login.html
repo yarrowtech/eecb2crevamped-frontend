@@ -167,7 +167,7 @@
 
 
 <!-- login.html -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -176,15 +176,16 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <style>
   body {
-  background: url('img/login1.jpg') no-repeat center center fixed;
+  background: url('img/date.jpg') no-repeat center center fixed;
   background-size: cover;
   font-family: sans-serif;
 }
     .login-container {
-      max-width: 400px;
+      max-width: 350px;
       margin: 100px auto;
+      margin-right: 250px;
       background-color: #ede6e6;
-      padding: 40px;
+      padding: 20px;
       border-radius: 8px;
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     }
@@ -264,4 +265,124 @@
   </script>
 
 </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | EEC Learning App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      background: url('img/date.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .login-container {
+      max-width: 350px;
+      margin: 100px auto;
+      margin-right: 250px;
+      background-color: #ede6e6;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control {
+      margin-bottom: 15px;
+      background-color: #fef6e4;
+      color: #222;
+      border: 1px solid #ffb703;
+    }
+
+    .form-control::placeholder {
+      color: #999;
+      font-size: 10px;
+    }
+
+    .btn-login {
+      background-color: #007bff;
+      color: #fff;
+      width: 100%;
+    }
+
+    .btn-login:hover {
+      background-color: #0056b3;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2 class="login-header">Login to EEC Learning</h2>
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="identifier" class="form-label">Email or Phone Number</label>
+        <input type="text" class="form-control" id="identifier" placeholder="Enter your email or phone" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password" required />
+      </div>
+      <button type="submit" class="btn btn-login">Login</button>
+    </form>
+  </div>
+
+  <!-- ✅ Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const identifier = document.getElementById("identifier").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      try {
+        const response = await fetch("http://localhost:3000/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ identifier, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // ✅ Confetti effect
+          confetti({
+            particleCount: 150,
+            spread: 100,
+            origin: { y: 0.6 }
+          });
+
+          // Wait 1.5 seconds to show confetti before redirect
+          setTimeout(() => {
+            alert("Login successful! Welcome, " + data.user.childName);
+            window.location.href = `profileupdate.html?identifier=${encodeURIComponent(identifier)}`;
+          }, 1500);
+
+        } else {
+          alert("Login failed: " + data.message);
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        alert("An unexpected error occurred. Please try again later.");
+      }
+    });
+  </script>
+</body>
 </html>
+
